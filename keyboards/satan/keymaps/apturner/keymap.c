@@ -22,8 +22,6 @@ enum satan_keycodes {
     RAISE
 };
 
-// test message
-
 #define ____ KC_TRNS
 #define XXXXXXX KC_NO
 
