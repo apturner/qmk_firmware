@@ -60,12 +60,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* Backlight configuration
- */
+/* Backlight configuration */
 #define BACKLIGHT_LEVELS 4
 
-/* Underlight configuration
- */
+/* Underlight configuration */
 
 #define RGB_DI_PIN E2
 #define RGBLIGHT_ANIMATIONS
@@ -91,5 +89,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#define GRAVE_ESC_ALT_OVERRIDE
+#define GRAVE_ESC_CTRL_OVERRIDE
 
 #endif
