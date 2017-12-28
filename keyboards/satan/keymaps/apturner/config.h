@@ -89,7 +89,9 @@ These options are also useful to firmware size reduction.
 //#define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define GRAVE_ESC_ALT_OVERRIDE
+#define GRAVE_ESC_GUI_OVERRIDE
 #define GRAVE_ESC_CTRL_OVERRIDE
+
+#define TAPPING_TERM 200
 
 #endif
