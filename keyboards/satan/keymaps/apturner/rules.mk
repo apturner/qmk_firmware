@@ -61,8 +61,13 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
+# Bootloader (Correctly defines boot section size)
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded
+#     automatically (+60). See bootloader.mk for all options.
+BOOTLOADER = lufa-dfu
 
 # Build Options
 #   comment out to disable the options.
@@ -78,7 +83,7 @@ BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
 MIDI_ENABLE = no 		# MIDI controls
 AUDIO_ENABLE = no 		# Enable audio
 UNICODE_ENABLE = no 	# Unicode
-BLUETOOTH_ENABLE = No 	# Enable Bluetooth with the Adafruit EZ-Key HID
+BLUETOOTH_ENABLE = no 	# Enable Bluetooth with the Adafruit EZ-Key HID
 TAP_DANCE_ENABLE = yes	# Enable tap dancing (+~1000)
 
 LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift

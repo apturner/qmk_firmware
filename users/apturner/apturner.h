@@ -20,10 +20,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-// Define layer names 
-#define BASE 0
-	enum custom_keycodes {
-  		KC_MAKE = SAFE_RANGE,
-  		NEW_SAFE_RANGE  //use NEW_SAFE_RANGE for keymap specific codes
-	}; 
+enum custom_keycodes {
+	KC_MAKE = SAFE_RANGE,
+	NEW_SAFE_RANGE  //use NEW_SAFE_RANGE for keymap specific codes
+}; 
+
 #endif

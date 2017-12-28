@@ -72,8 +72,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 17
 
 /*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
+Feature disable options
+These options are also useful to firmware size reduction.
  */
 
 /* disable debug print */
@@ -85,9 +85,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+#define NO_ACTION_FUNCTION
 
 #define GRAVE_ESC_ALT_OVERRIDE
 #define GRAVE_ESC_CTRL_OVERRIDE

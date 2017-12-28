@@ -60,7 +60,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MAKE:
             if (!record->event.pressed) {
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
+                SEND_STRING("sudo make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
                     ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
@@ -78,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // Run user layer change check, then runs keymap's layer change check
-uint32_t layer_state_set_user (uint32_t state) {
+uint32_t layer_state_set_user(uint32_t state) {
     return layer_state_set_keymap (state);
 }
 
