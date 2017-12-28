@@ -35,9 +35,10 @@ enum satan_layers {
 };
 
 // Keycode declarations
-// enum satan_keycodes {
-//     QWERTY = NEW_SAFE_RANGE,
-// };
+enum satan_keycodes {
+    NEXT = NEW_SAFE_RANGE,
+    PREV,
+};
 
 // Tap Dance declarations
 enum {
@@ -53,9 +54,9 @@ enum {
 #define REDO    SCMD(KC_Z)       // Redo
 #define SOFT_UN LGUI(KC_U)       // Soft undo in Sublime
 #define SOFT_RE SCMD(KC_U)       // Soft redo in Sublime
-#define CUT     SCMD(KC_X)       // Cut
-#define COPY    SCMD(KC_C)       // Copy
-#define PASTE   SCMD(KC_V)       // Paste
+#define CUT     LGUI(KC_X)       // Cut
+#define COPY    LGUI(KC_C)       // Copy
+#define PASTE   LGUI(KC_V)       // Paste
 #define TAB_CAG LCAG_T(KC_TAB)   // Tap for Tab, hold for Ctrl+Alt+GUI
 
 
@@ -98,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ____,  ____, SFT_UN,  UNDO,  REDO, SFT_RE, KC_PGUP, KC_HOME,   KC_UP,  KC_END,   ____,   ____,   ____,   ____, \
         ____,   CUT,   COPY, PASTE,  ____,   ____, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, KC_GRV,           ____, \
         ____,          ____,  ____,  ____,   ____,    ____,    ____,    ____,    ____,   ____,   ____,           ____, \
-        ____,  ____,   ____,                             ____,                              ____,   ____,   ____,  ____),
+        ____,  ____,   ____,                          ____,                              ____,   ____,   ____,  ____),
 
     /* Keymap _FN2: Function Layer
      *  -------------------------------------------------------------------------.
@@ -106,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-------------------------------------------------------------------------|
      * |RESET |    |    |    |    |    |    |    |    |    |    |BL- |BL+ |BL_TOG|
      * |-------------------------------------------------------------------------|
-     * |       |PREW|PREM| PP |NXTM|NXTW|    |    |    |    |    |    |          |
+     * |       |    |PREV| PP |NEXT|    |    |    |    |    |    |    |          |
      * |-------------------------------------------------------------------------|
      * |         |    |    |    |    |    |    |    |MUTE| V- | V+ |             |
      * |-------------------------------------------------------------------------|
@@ -114,11 +115,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------'
      */
     [_FN2] = KEYMAP_ANSI(
-        KC_MAKE,    ____,    ____,    ____,    ____,    ____, ____, ____, ____,    ____,    ____, AG_SWAP, AG_NORM,    ____, \
-          RESET,    ____,    ____,    ____,    ____,    ____, ____, ____, ____,    ____,    ____,  BL_DEC,  BL_INC, BL_TOGG, \
-           ____, KC_MPRV, KC_MRWD, KC_MPLY, KC_MFFD, KC_MNXT, ____, ____, ____,    ____,    ____,    ____,             ____, \
-           ____,             ____,    ____,    ____,    ____, ____, ____, ____, KC_MUTE, KC_VOLD, KC_VOLU,             ____, \
-           ____,    ____,    ____,                            ____,                         ____,    ____,    ____,   ____),
+        KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____,    ____,    ____, AG_SWAP, AG_NORM,    ____, \
+          RESET, ____, ____,    ____, ____, ____, ____, ____, ____,    ____,    ____,  BL_DEC,  BL_INC, BL_TOGG, \
+           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____,    ____,    ____,    ____,             ____, \
+           ____,       ____,    ____, ____, ____, ____, ____, ____, KC_MUTE, KC_VOLD, KC_VOLU,             ____, \
+           ____, ____, ____,                      ____,                         ____,    ____,    ____,   ____),
 
     /* Keymap _NUM: Keypad Layer
      *  -------------------------------------------------------------------------.
@@ -147,19 +148,59 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SHIFT]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
-// void persistent_default_layer_set(uint16_t default_layer) {
-//     eeconfig_update_default_layer(default_layer);
-//     default_layer_set(default_layer);
-// }
+bool osx = true;
+void matrix_init_keymap(void) {
+    if(keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
+        osx = false;
+    }
+}
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    // switch (keycode) {
-    //     case QWERTY:
-    //         if (record->event.pressed) {
-    //             persistent_default_layer_set(1UL<<_QWERTY);
-    //         }
-    //         return false; // Skip all further processing of this key
-    //         break; // Exit switch
-    // }
+    switch (keycode) {
+        case AG_NORM:
+            if (record->event.pressed) {
+                osx = true;
+            }
+            return true; // Let QMK send the press/release events
+            break; // Exit switch
+        case AG_SWAP:
+            if (record->event.pressed) {
+                osx = false;
+            }
+            return true; // Let QMK send the press/release events
+            break; // Exit switch
+        case NEXT:
+            if (record->event.pressed) {
+                if osx {
+                    register_code(KC_MFFD);
+                } else {
+                    register_code(KC_MNXT)
+                }
+            } else {
+                if osx {
+                    unregister_code(KC_MFFD);
+                } else {
+                    unregister_code(KC_MNXT)
+                }
+            }
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case PREV:
+            if (record->event.pressed) {
+                if osx {
+                    register_code(KC_MRWD);
+                } else {
+                    register_code(KC_MPRV)
+                }
+            } else {
+                if osx {
+                    unregister_code(KC_MRWD);
+                } else {
+                    unregister_code(KC_MPRV)
+                }
+            }
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+    }
     return true; // Process all other keycodes normally
 }
