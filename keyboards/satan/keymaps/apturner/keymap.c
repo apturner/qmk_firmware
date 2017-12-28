@@ -20,7 +20,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // TO DO
 // Add mouse control layer, perhaps with exit key like the Plover layer
-// Add music controls
+// Fix media controls, including OS dependent function
+// Fix undo redo
+// Fix left shift
 
 // Treats CAPS_LOCK LED as backlight, comment to disable
 #define BACKLIGHT_CAPS
@@ -48,15 +50,17 @@ enum {
 
 // Custom macros
 #define NUM_SPC LT(_NUM, KC_SPC) // Tap for Space, hold for NUM layer
-#define SFT_UN  LGUI(KC_U)       // Soft undo in Sublime
-#define SFT_RE  SCMD(KC_U)       // Soft redo in Sublime
+#define KC_UN  LGUI(KC_Z)       // Undo
+#define KC_RE  SCMD(KC_Z)       // Redo
+#define SOFT_UN  LGUI(KC_U)       // Soft undo in Sublime
+#define SOFT_RE  SCMD(KC_U)       // Soft redo in Sublime
 #define TAB_CAG LCAG_T(KC_TAB)   // Tap for Tab, hold for Ctrl+Alt+GUI
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _QWERTY: (Base Layer) Default Layer
      * ,-------------------------------------------------------------------------.
-     * |ESC`| 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 0  | -  | =  | BACKSP |
+     * |ESC~| 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 0  | -  | =  | BACKSP |
      * |-------------------------------------------------------------------------|
      * |TABCAG| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  | [  | ]  |  \   |
      * |-------------------------------------------------------------------------|
@@ -80,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-------------------------------------------------------------------------|
      * |      |    |SFUN|UNDO|REDO|SFRE|PGUP|HOME| UP |END |    |    |    |      |
      * |-------------------------------------------------------------------------|
-     * |       |    |CUT |COPY|PSTE|    |PGDN|LEFT|DOWN|RGHT|INS |    |          |
+     * |       |    |CUT |COPY|PSTE|    |PGDN|LEFT|DOWN|RGHT|INS | `  |          |
      * |-------------------------------------------------------------------------|
      * |         |    |    |    |    |    |    |    |    |    |    |             |
      * |-------------------------------------------------------------------------|
@@ -89,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_FN1] = KEYMAP_ANSI(
         ____,  KC_F1,   KC_F2,    KC_F3,    KC_F4,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, \
-        ____,   ____,  SFT_UN,  KC_UNDO, KC_AGAIN, SFT_RE, KC_PGUP, KC_HOME,   KC_UP,  KC_END,   ____,   ____,   ____,   ____, \
-        ____, KC_CUT, KC_COPY, KC_PASTE,     ____,   ____, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,   ____,           ____, \
+        ____,   ____,  SFT_UN,    KC_UN,    KC_RE, SFT_RE, KC_PGUP, KC_HOME,   KC_UP,  KC_END,   ____,   ____,   ____,   ____, \
+        ____, KC_CUT, KC_COPY, KC_PASTE,     ____,   ____, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, KC_GRV,           ____, \
         ____,            ____,     ____,     ____,   ____,    ____,    ____,    ____,    ____,   ____,   ____,           ____, \
         ____,   ____,    ____,                                ____,                              ____,   ____,   ____,  ____),
 
@@ -137,8 +141,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    //Tap once for Esc, twice for Caps Lock
-    [TD_SHIFT]  = ACTION_TAP_DANCE_DOUBLE(KC_LSPO, KC_CAPS),
+    //Tap once for Shift, twice for Caps Lock
+    [TD_SHIFT]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
 // void persistent_default_layer_set(uint16_t default_layer) {
