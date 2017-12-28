@@ -1,3 +1,18 @@
+# Copyright 2017 Andrew Turner <apturner@mit.edu> @apturner
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 
 # MCU name
 #MCU = at90usb1287
@@ -58,7 +73,7 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE = no   # Enable keyboard underlight functionality (+4870)
+RGBLIGHT_ENABLE = no    # Enable keyboard underlight functionality (+4870)
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
 MIDI_ENABLE = no 		# MIDI controls
 AUDIO_ENABLE = no 		# Enable audio
