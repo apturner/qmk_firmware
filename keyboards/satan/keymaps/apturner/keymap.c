@@ -21,7 +21,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // TO DO
 // Add mouse control layer, perhaps with exit key like the Plover layer
 // Fix media controls, including OS dependent function
-// Fix undo redo
 // Fix left shift
 
 // Treats CAPS_LOCK LED as backlight, comment to disable
@@ -50,10 +49,13 @@ enum {
 
 // Custom macros
 #define NUM_SPC LT(_NUM, KC_SPC) // Tap for Space, hold for NUM layer
-#define KC_UN  LGUI(KC_Z)       // Undo
-#define KC_RE  SCMD(KC_Z)       // Redo
-#define SOFT_UN  LGUI(KC_U)       // Soft undo in Sublime
-#define SOFT_RE  SCMD(KC_U)       // Soft redo in Sublime
+#define UNDO    LGUI(KC_Z)       // Undo
+#define REDO    SCMD(KC_Z)       // Redo
+#define SOFT_UN LGUI(KC_U)       // Soft undo in Sublime
+#define SOFT_RE SCMD(KC_U)       // Soft redo in Sublime
+#define CUT     SCMD(KC_X)       // Cut
+#define COPY    SCMD(KC_C)       // Copy
+#define PASTE   SCMD(KC_V)       // Paste
 #define TAB_CAG LCAG_T(KC_TAB)   // Tap for Tab, hold for Ctrl+Alt+GUI
 
 
@@ -92,11 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------'
      */
     [_FN1] = KEYMAP_ANSI(
-        ____,  KC_F1,   KC_F2,    KC_F3,    KC_F4,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, \
-        ____,   ____,  SFT_UN,    KC_UN,    KC_RE, SFT_RE, KC_PGUP, KC_HOME,   KC_UP,  KC_END,   ____,   ____,   ____,   ____, \
-        ____, KC_CUT, KC_COPY, KC_PASTE,     ____,   ____, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, KC_GRV,           ____, \
-        ____,            ____,     ____,     ____,   ____,    ____,    ____,    ____,    ____,   ____,   ____,           ____, \
-        ____,   ____,    ____,                                ____,                              ____,   ____,   ____,  ____),
+        ____, KC_F1,  KC_F2, KC_F3, KC_F4,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, \
+        ____,  ____, SFT_UN,  UNDO,  REDO, SFT_RE, KC_PGUP, KC_HOME,   KC_UP,  KC_END,   ____,   ____,   ____,   ____, \
+        ____,   CUT,   COPY, PASTE,  ____,   ____, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, KC_GRV,           ____, \
+        ____,          ____,  ____,  ____,   ____,    ____,    ____,    ____,    ____,   ____,   ____,           ____, \
+        ____,  ____,   ____,                             ____,                              ____,   ____,   ____,  ____),
 
     /* Keymap _FN2: Function Layer
      *  -------------------------------------------------------------------------.
