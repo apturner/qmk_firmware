@@ -55,12 +55,12 @@ void matrix_scan_user(void) {
 
 // Defines actions for global custom keycodes. Defined in apturner.h file
 // Then runs the _keymap's record handier if not processed here,
-// And use "NEWPLACEHOLDER" for new safe range
+// And use "NEWP_SAFE_RANGE" for new safe range
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MAKE:
             if (!record->event.pressed) {
-                SEND_STRING("sudo make " QMK_KEYBOARD ":" QMK_KEYMAP
+                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
                     ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
@@ -69,6 +69,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     ":avrdude"
 #endif
                     SS_TAP(X_ENTER));
+                reset_keyboard();
             }
             return false;
             break;
