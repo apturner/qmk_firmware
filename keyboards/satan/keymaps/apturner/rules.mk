@@ -58,11 +58,12 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality (+4870)
+RGBLIGHT_ENABLE = no   # Enable keyboard underlight functionality (+4870)
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
 MIDI_ENABLE = no 		# MIDI controls
-AUDIO_ENABLE = no
-UNICODE_ENABLE = no 		# Unicode
-BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no 		# Enable audio
+UNICODE_ENABLE = no 	# Unicode
+BLUETOOTH_ENABLE = No 	# Enable Bluetooth with the Adafruit EZ-Key HID
+TAP_DANCE_ENABLE = yes	# Enable tap dancing (+~1000)
 
 LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift
