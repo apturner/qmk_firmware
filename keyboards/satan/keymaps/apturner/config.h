@@ -93,6 +93,6 @@ These options are also useful to firmware size reduction.
 #define GRAVE_ESC_ALT_OVERRIDE
 #define GRAVE_ESC_CTRL_OVERRIDE
 
-#define TAPPING_TERM 200
+// #define TAPPING_TERM 100
 
 #endif

@@ -41,9 +41,9 @@ enum satan_keycodes {
 };
 
 // Tap Dance declarations
-enum {
-    TD_SHIFT,
-};
+// enum {
+//     TD_SHIFT,
+// };
 
 #define ____ KC_TRNS
 #define XXXX KC_NO
@@ -75,11 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------'
      */
     [_QWERTY] = KEYMAP_ANSI(
-             KC_GESC,    KC_1,    KC_2, KC_3, KC_4, KC_5,    KC_6, KC_7, KC_8,    KC_9,    KC_0,  KC_MINS,   KC_EQL,  KC_BSPC, \
-             TAB_CAG,    KC_Q,    KC_W, KC_E, KC_R, KC_T,    KC_Y, KC_U, KC_I,    KC_O,    KC_P,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
-            MO(_FN1),    KC_A,    KC_S, KC_D, KC_F, KC_G,    KC_H, KC_J, KC_K,    KC_L, KC_SCLN,  KC_QUOT,             KC_ENT, \
-        TD(TD_SHIFT),             KC_Z, KC_X, KC_C, KC_V,    KC_B, KC_N, KC_M, KC_COMM,  KC_DOT,  KC_SLSH,            KC_RSPC, \
-             KC_LCTL, KC_LALT, KC_LGUI,                   NUM_SPC,                      KC_RGUI,  KC_RALT, MO(_FN2), KC_RCTL),
+         KC_GESC,    KC_1,    KC_2, KC_3, KC_4, KC_5,    KC_6, KC_7, KC_8,    KC_9,    KC_0,  KC_MINS,   KC_EQL,  KC_BSPC, \
+         TAB_CAG,    KC_Q,    KC_W, KC_E, KC_R, KC_T,    KC_Y, KC_U, KC_I,    KC_O,    KC_P,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
+        MO(_FN1),    KC_A,    KC_S, KC_D, KC_F, KC_G,    KC_H, KC_J, KC_K,    KC_L, KC_SCLN,  KC_QUOT,             KC_ENT, \
+         KC_LSPO,             KC_Z, KC_X, KC_C, KC_V,    KC_B, KC_N, KC_M, KC_COMM,  KC_DOT,  KC_SLSH,            KC_RSPC, \
+         KC_LCTL, KC_LALT, KC_LGUI,                   NUM_SPC,                      KC_RGUI,  KC_RALT, MO(_FN2), KC_RCTL),
 
     /* Keymap _FN1: Function Layer
      *  -------------------------------------------------------------------------.
@@ -95,11 +95,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------'
      */
     [_FN1] = KEYMAP_ANSI(
-        ____, KC_F1,  KC_F2, KC_F3, KC_F4,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, \
-        ____,  ____, SFT_UN,  UNDO,  REDO, SFT_RE, KC_PGUP, KC_HOME,   KC_UP,  KC_END,   ____,   ____,   ____,   ____, \
-        ____,   CUT,   COPY, PASTE,  ____,   ____, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, KC_GRV,           ____, \
-        ____,          ____,  ____,  ____,   ____,    ____,    ____,    ____,    ____,   ____,   ____,           ____, \
-        ____,  ____,   ____,                          ____,                              ____,   ____,   ____,  ____),
+        ____, KC_F1,   KC_F2, KC_F3, KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, \
+        ____,  ____, SOFT_UN,  UNDO,  REDO, SOFT_RE, KC_PGUP, KC_HOME,   KC_UP,  KC_END,   ____,   ____,   ____,   ____, \
+        ____,   CUT,    COPY, PASTE,  ____,    ____, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, KC_GRV,           ____, \
+        ____,           ____,  ____,  ____,    ____,    ____,    ____,    ____,    ____,   ____,   ____,           ____, \
+        ____,  ____,    ____,                           ____,                              ____,   ____,   ____,  ____),
 
     /* Keymap _FN2: Function Layer
      *  -------------------------------------------------------------------------.
@@ -143,14 +143,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 //Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    //Tap once for Shift, twice for Caps Lock
-    [TD_SHIFT]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
-};
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//     //Tap once for Shift, twice for Caps Lock
+//     [TD_SHIFT]  = ACTION_TAP_DANCE_DOUBLE(KC_LSPO, KC_CAPS),
+// };
 
 bool osx = true;
 void matrix_init_keymap(void) {
-    if(keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
+    if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
         osx = false;
     }
 }
@@ -171,32 +171,32 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             break; // Exit switch
         case NEXT:
             if (record->event.pressed) {
-                if osx {
+                if (osx) {
                     register_code(KC_MFFD);
                 } else {
-                    register_code(KC_MNXT)
+                    register_code(KC_MNXT);
                 }
             } else {
-                if osx {
+                if (osx) {
                     unregister_code(KC_MFFD);
                 } else {
-                    unregister_code(KC_MNXT)
+                    unregister_code(KC_MNXT);
                 }
             }
             return false; // Skip all further processing of this key
             break; // Exit switch
         case PREV:
             if (record->event.pressed) {
-                if osx {
+                if (osx) {
                     register_code(KC_MRWD);
                 } else {
-                    register_code(KC_MPRV)
+                    register_code(KC_MPRV);
                 }
             } else {
-                if osx {
+                if (osx) {
                     unregister_code(KC_MRWD);
                 } else {
-                    unregister_code(KC_MPRV)
+                    unregister_code(KC_MPRV);
                 }
             }
             return false; // Skip all further processing of this key
