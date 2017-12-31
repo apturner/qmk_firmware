@@ -63,7 +63,6 @@ enum satan_keycodes {
 #define SOFT_RE SCMD(KC_U)       // Soft redo in Sublime
 #define TAB_HYP ALL_T(KC_TAB)   // Tap for Tab, hold for Hyper
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _QWERTY: (Base Layer) Default Layer
      * ,-------------------------------------------------------------------------.
@@ -153,18 +152,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // };
 
 bool osx = true;
-void conditional_key(bool condition, uint8_t keycode_true, uint8_t keycode_false, keyrecord_t *record) {
+void conditional_key(bool condition, uint16_t keycode_true, uint16_t keycode_false, keyrecord_t *record) {
     if (record->event.pressed) {
         if (condition) {
-            register_code(keycode_true);
+            register_code16(keycode_true);
         } else {
-            register_code(keycode_false);
+            register_code16(keycode_false);
         }
     } else {
         if (condition) {
-            unregister_code(keycode_true);
+            unregister_code16(keycode_true);
         } else {
-            unregister_code(keycode_false);
+            unregister_code16(keycode_false);
         }
     }
 }
