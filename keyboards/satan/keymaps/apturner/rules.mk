@@ -84,6 +84,6 @@ MIDI_ENABLE = no 		# MIDI controls
 AUDIO_ENABLE = no 		# Enable audio
 UNICODE_ENABLE = no 	# Unicode
 BLUETOOTH_ENABLE = no 	# Enable Bluetooth with the Adafruit EZ-Key HID
-TAP_DANCE_ENABLE = yes	# Enable tap dancing (+~1000)
+TAP_DANCE_ENABLE = no	# Enable tap dancing (+~1000)
 
 LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift
