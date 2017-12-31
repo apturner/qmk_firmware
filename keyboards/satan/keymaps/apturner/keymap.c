@@ -21,7 +21,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // TO DO
 // Add mouse control layer, perhaps with exit key like the Plover layer
 // Fix media controls, including OS dependent function
-// Fix left shift
+// Fix left shift and tap dancing
+// Add power button
 
 // Treats CAPS_LOCK LED as backlight, comment to disable
 #define BACKLIGHT_CAPS
@@ -38,6 +39,14 @@ enum satan_layers {
 enum satan_keycodes {
     NEXT = NEW_SAFE_RANGE,
     PREV,
+    MUTE,
+    VOLD,
+    VOLU,
+    UNDO,
+    REDO,
+    CUT,
+    COPY,
+    PASTE,
 };
 
 // Tap Dance declarations
@@ -57,7 +66,7 @@ enum satan_keycodes {
 #define CUT     LGUI(KC_X)       // Cut
 #define COPY    LGUI(KC_C)       // Copy
 #define PASTE   LGUI(KC_V)       // Paste
-#define TAB_CAG LCAG_T(KC_TAB)   // Tap for Tab, hold for Ctrl+Alt+GUI
+#define TAB_HYP ALL_T(KC_TAB)   // Tap for Tab, hold for Hyper
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -65,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-------------------------------------------------------------------------.
      * |ESC~| 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 0  | -  | =  | BACKSP |
      * |-------------------------------------------------------------------------|
-     * |TABCAG| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  | [  | ]  |  \   |
+     * |TABHYP| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  | [  | ]  |  \   |
      * |-------------------------------------------------------------------------|
      * |  FN1  | A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  |  RETURN  |
      * |-------------------------------------------------------------------------|
@@ -76,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_QWERTY] = KEYMAP_ANSI(
          KC_GESC,    KC_1,    KC_2, KC_3, KC_4, KC_5,    KC_6, KC_7, KC_8,    KC_9,    KC_0,  KC_MINS,   KC_EQL,  KC_BSPC, \
-         TAB_CAG,    KC_Q,    KC_W, KC_E, KC_R, KC_T,    KC_Y, KC_U, KC_I,    KC_O,    KC_P,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
+         TAB_HYP,    KC_Q,    KC_W, KC_E, KC_R, KC_T,    KC_Y, KC_U, KC_I,    KC_O,    KC_P,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
         MO(_FN1),    KC_A,    KC_S, KC_D, KC_F, KC_G,    KC_H, KC_J, KC_K,    KC_L, KC_SCLN,  KC_QUOT,             KC_ENT, \
          KC_LSPO,             KC_Z, KC_X, KC_C, KC_V,    KC_B, KC_N, KC_M, KC_COMM,  KC_DOT,  KC_SLSH,            KC_RSPC, \
          KC_LCTL, KC_LALT, KC_LGUI,                   NUM_SPC,                      KC_RGUI,  KC_RALT, MO(_FN2), KC_RCTL),
@@ -115,11 +124,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------'
      */
     [_FN2] = KEYMAP_ANSI(
-        KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____,    ____,    ____, AG_SWAP, AG_NORM,    ____, \
-          RESET, ____, ____,    ____, ____, ____, ____, ____, ____,    ____,    ____,  BL_DEC,  BL_INC, BL_TOGG, \
-           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____,    ____,    ____,    ____,             ____, \
-           ____,       ____,    ____, ____, ____, ____, ____, ____, KC_MUTE, KC_VOLD, KC_VOLU,             ____, \
-           ____, ____, ____,                      ____,                         ____,    ____,    ____,   ____),
+        KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____, ____, ____, AG_SWAP, AG_NORM,    ____, \
+          RESET, ____, ____,    ____, ____, ____, ____, ____, ____, ____, ____,  BL_DEC,  BL_INC, BL_TOGG, \
+           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____, ____, ____,    ____,             ____, \
+           ____,       ____,    ____, ____, ____, ____, ____, ____, MUTE, VOLD,    VOLU,             ____, \
+           ____, ____, ____,                      ____,                   ____,    ____,    ____,   ____),
 
     /* Keymap _NUM: Keypad Layer
      *  -------------------------------------------------------------------------.
@@ -197,6 +206,54 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_MRWD);
                 } else {
                     unregister_code(KC_MPRV);
+                }
+            }
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case MUTE:
+            if (record->event.pressed) {
+                if (osx) {
+                    register_code(KC__MUTE);
+                } else {
+                    register_code(KC_MUTE);
+                }
+            } else {
+                if (osx) {
+                    unregister_code(KC__MUTE);
+                } else {
+                    unregister_code(KC_MUTE);
+                }
+            }
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case VOLD:
+            if (record->event.pressed) {
+                if (osx) {
+                    register_code(KC__VOLDOWN);
+                } else {
+                    register_code(KC_VOLD);
+                }
+            } else {
+                if (osx) {
+                    unregister_code(KC__VOLDOWN);
+                } else {
+                    unregister_code(KC_VOLD);
+                }
+            }
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case VOLU:
+            if (record->event.pressed) {
+                if (osx) {
+                    register_code(KC__VOLUP);
+                } else {
+                    register_code(KC_VOLU);
+                }
+            } else {
+                if (osx) {
+                    unregister_code(KC__VOLUP);
+                } else {
+                    unregister_code(KC_VOLU);
                 }
             }
             return false; // Skip all further processing of this key
