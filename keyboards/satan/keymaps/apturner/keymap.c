@@ -59,13 +59,8 @@ enum satan_keycodes {
 
 // Custom macros
 #define NUM_SPC LT(_NUM, KC_SPC) // Tap for Space, hold for NUM layer
-#define UNDO    LGUI(KC_Z)       // Undo
-#define REDO    SCMD(KC_Z)       // Redo
 #define SOFT_UN LGUI(KC_U)       // Soft undo in Sublime
 #define SOFT_RE SCMD(KC_U)       // Soft redo in Sublime
-#define CUT     LGUI(KC_X)       // Cut
-#define COPY    LGUI(KC_C)       // Copy
-#define PASTE   LGUI(KC_V)       // Paste
 #define TAB_HYP ALL_T(KC_TAB)   // Tap for Tab, hold for Hyper
 
 
@@ -158,6 +153,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // };
 
 bool osx = true;
+void conditional_key(bool condition, uint8_t keycode_true, uint8_t keycode_false, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (condition) {
+            register_code(keycode_true);
+        } else {
+            register_code(keycode_false);
+        }
+    } else {
+        if (condition) {
+            unregister_code(keycode_true);
+        } else {
+            unregister_code(keycode_false);
+        }
+    }
+}
+
 void matrix_init_keymap(void) {
     if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
         osx = false;
@@ -179,83 +190,43 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             return true; // Let QMK send the press/release events
             break; // Exit switch
         case NEXT:
-            if (record->event.pressed) {
-                if (osx) {
-                    register_code(KC_MFFD);
-                } else {
-                    register_code(KC_MNXT);
-                }
-            } else {
-                if (osx) {
-                    unregister_code(KC_MFFD);
-                } else {
-                    unregister_code(KC_MNXT);
-                }
-            }
+            conditional_key(osx, KC_MFFD, KC_MNXT, record);
             return false; // Skip all further processing of this key
             break; // Exit switch
         case PREV:
-            if (record->event.pressed) {
-                if (osx) {
-                    register_code(KC_MRWD);
-                } else {
-                    register_code(KC_MPRV);
-                }
-            } else {
-                if (osx) {
-                    unregister_code(KC_MRWD);
-                } else {
-                    unregister_code(KC_MPRV);
-                }
-            }
+            conditional_key(osx, KC_MRWD, KC_MPRV, record);
             return false; // Skip all further processing of this key
             break; // Exit switch
         case MUTE:
-            if (record->event.pressed) {
-                if (osx) {
-                    register_code(KC__MUTE);
-                } else {
-                    register_code(KC_MUTE);
-                }
-            } else {
-                if (osx) {
-                    unregister_code(KC__MUTE);
-                } else {
-                    unregister_code(KC_MUTE);
-                }
-            }
+            conditional_key(osx, KC__MUTE, KC_MUTE, record);
             return false; // Skip all further processing of this key
             break; // Exit switch
         case VOLD:
-            if (record->event.pressed) {
-                if (osx) {
-                    register_code(KC__VOLDOWN);
-                } else {
-                    register_code(KC_VOLD);
-                }
-            } else {
-                if (osx) {
-                    unregister_code(KC__VOLDOWN);
-                } else {
-                    unregister_code(KC_VOLD);
-                }
-            }
+            conditional_key(osx, KC__VOLDOWN, KC_VOLD, record);
             return false; // Skip all further processing of this key
             break; // Exit switch
         case VOLU:
-            if (record->event.pressed) {
-                if (osx) {
-                    register_code(KC__VOLUP);
-                } else {
-                    register_code(KC_VOLU);
-                }
-            } else {
-                if (osx) {
-                    unregister_code(KC__VOLUP);
-                } else {
-                    unregister_code(KC_VOLU);
-                }
-            }
+            conditional_key(osx, KC__VOLUP, KC_VOLU, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case UNDO:
+            conditional_key(osx, LGUI(KC_Z), KC_UNDO, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case REDO:
+            conditional_key(osx, SCMD(KC_Z), KC_AGAIN, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case CUT:
+            conditional_key(osx, LGUI(KC_X), KC_CUT, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case COPY:
+            conditional_key(osx, LGUI(KC_C), KC_COPY, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case PASTE:
+            conditional_key(osx, LGUI(KC_V), KC_PASTE, record);
             return false; // Skip all further processing of this key
             break; // Exit switch
     }
