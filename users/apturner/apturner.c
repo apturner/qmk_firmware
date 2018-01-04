@@ -55,7 +55,7 @@ void matrix_scan_user(void) {
 
 // Defines actions for global custom keycodes. Defined in apturner.h file
 // Then runs the _keymap's record handier if not processed here,
-// And use "NEWP_SAFE_RANGE" for new safe range
+// And use "NEW_SAFE_RANGE" for new safe range
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MAKE:

@@ -172,6 +172,47 @@ void matrix_init_keymap(void) {
     if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
         osx = false;
     }
+
+    #ifdef BACKLIGHT_CAPS
+        // register the required ISRs
+        TIMSK1 |= _BV(OCIE1B) | _BV(TOIE1);
+    #endif
+}
+
+#ifdef BACKLIGHT_CAPS
+    uint8_t backlight_on;
+
+    ISR(TIMER1_COMPB_vect)
+    {
+        led_set_kb(~(1 << USB_LED_BL));
+    }
+
+    ISR(TIMER1_OVF_vect)
+    {
+        if (OCR1B != 0)
+            led_set_kb(1 << USB_LED_BL);
+    }
+#endif
+
+void led_set_keymap(uint8_t usb_led) {
+    #ifndef BACKLIGHT_CAPS
+        if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+            // Turn capslock on
+            PORTB &= ~(1<<2);
+        } else {
+            // Turn capslock off
+            PORTB |= (1<<2);
+        }
+    #endif
+    #ifdef BACKLIGHT_CAPS
+        if (usb_led & (1 << USB_LED_BL)) {
+            // Turn capslock on
+            PORTB &= ~(1<<2);
+        } else {
+            // Turn capslock off
+            PORTB |= (1<<2);
+        }
+    #endif
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
