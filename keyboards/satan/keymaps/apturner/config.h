@@ -62,6 +62,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight configuration */
 #define BACKLIGHT_LEVELS 4
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
 
 /* Underlight configuration */
 #define RGB_DI_PIN E2

@@ -18,11 +18,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "apturner.h"
 #include "satan.h"
 
-// TO DO
-// Add mouse control layer, perhaps with exit key like the Plover layer
-// Fix media controls, including OS dependent function
-// Fix left shift and tap dancing
-// Add power button
+/* TO DO
+ * Add mouse control layer, perhaps with exit key like the Plover layer
+ * Fix left shift and tap dancing
+ * Add power button
+ */
 
 // Treats CAPS_LOCK LED as backlight, comment to disable
 #define BACKLIGHT_CAPS
