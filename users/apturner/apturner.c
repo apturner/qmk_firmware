@@ -61,13 +61,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_MAKE:
             if (!record->event.pressed) {
                 SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
-#if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                    ":dfu"
-#elif defined(BOOTLOADER_HALFKAY)
-                    ":teensy"
-#elif defined(BOOTLOADER_CATERINA)
-                    ":avrdude"
-#endif
+                    #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
+                        ":dfu"
+                    #elif defined(BOOTLOADER_HALFKAY)
+                        ":teensy"
+                    #elif defined(BOOTLOADER_CATERINA)
+                        ":avrdude"
+                    #endif
                     SS_TAP(X_ENTER));
                 reset_keyboard();
             }
