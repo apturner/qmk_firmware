@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  * Add mouse control layer, perhaps with exit key like the Plover layer
  * Fix left shift and tap dancing
  * Add power button
+ * Fix LED breathing
  */
 
 // Treats CAPS_LOCK LED as backlight, comment to disable
@@ -108,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  -------------------------------------------------------------------------.
      * |MAKE|    |    |    |    |    |    |    |    |    |    |SWAP|NORM|        |
      * |-------------------------------------------------------------------------|
-     * |RESET |    |    |    |    |    |    |    |    |    |    |BL- |BL+ |BL_TOG|
+     * |RESET |    |    |    |    |    |    |    |    |    |BRTG|BL- |BL+ |BL_TOG|
      * |-------------------------------------------------------------------------|
      * |       |    |PREV| PP |NEXT|    |    |    |    |    |    |    |          |
      * |-------------------------------------------------------------------------|
@@ -118,11 +119,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------'
      */
     [_FN2] = KEYMAP_ANSI(
-        KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____, ____, ____, AG_SWAP, AG_NORM,    ____, \
-          RESET, ____, ____,    ____, ____, ____, ____, ____, ____, ____, ____,  BL_DEC,  BL_INC, BL_TOGG, \
-           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____, ____, ____,    ____,             ____, \
-           ____,       ____,    ____, ____, ____, ____, ____, ____, MUTE, VOLD,    VOLU,             ____, \
-           ____, ____, ____,                      ____,                   ____,    ____,    ____,   ____),
+        KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____, ____,    ____, AG_SWAP, AG_NORM,    ____, \
+          RESET, ____, ____,    ____, ____, ____, ____, ____, ____, ____, BL_BRTG,  BL_DEC,  BL_INC, BL_TOGG, \
+           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____, ____,    ____,    ____,             ____, \
+           ____,       ____,    ____, ____, ____, ____, ____, ____, MUTE,    VOLD,    VOLU,             ____, \
+           ____, ____, ____,                      ____,                      ____,    ____,    ____,   ____),
 
     /* Keymap _NUM: Keypad Layer
      *  -------------------------------------------------------------------------.
@@ -151,6 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     [TD_SHIFT]  = ACTION_TAP_DANCE_DOUBLE(KC_LSPO, KC_CAPS),
 // };
 
+// For conditioning on which OS
 bool osx = true;
 void conditional_key(bool condition, uint16_t keycode_true, uint16_t keycode_false, keyrecord_t *record) {
     if (record->event.pressed) {
@@ -169,16 +171,30 @@ void conditional_key(bool condition, uint16_t keycode_true, uint16_t keycode_fal
 }
 
 void matrix_init_keymap(void) {
+    // OS conditioning setup
     if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
         osx = false;
     }
 
+    // Backlight setup
     #ifdef BACKLIGHT_CAPS
         // register the required ISRs
-        TIMSK1 |= _BV(OCIE1B) | _BV(TOIE1);
+        // #ifdef BACKLIGHT_BREATHING
+        //     TIMSK1 |= _BV(OCIE1B);
+        // #else
+            TIMSK1 |= _BV(OCIE1B) | _BV(TOIE1);
+        // #endif
+        // TIMSK3 |= _BV(TOIE3);
+
+        // #define TIMER_TOP 0xFFFFU // Copied this from quantum.c, magic number
+        // TCCR3A = _BV(COM3B1) | _BV(WGM31); // = 0b00100010;
+        // TCCR3B = _BV(WGM33) | _BV(WGM32) | _BV(CS30); // = 0b00011001;
+        // // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
+        // ICR3 = TIMER_TOP;
     #endif
 }
 
+// Backlight setup
 #ifdef BACKLIGHT_CAPS
     uint8_t backlight_on;
 
@@ -187,11 +203,21 @@ void matrix_init_keymap(void) {
         led_set_kb(~(1 << USB_LED_BL));
     }
 
-    ISR(TIMER1_OVF_vect)
-    {
-        if (OCR1B != 0)
-            led_set_kb(1 << USB_LED_BL);
-    }
+    // #ifdef BACKLIGHT_BREATHING
+    //     #define LED_INTERRUPT_USER
+    //     void led_interrupt_keymap(void) {
+    //         if (OCR1B != 0) {
+    //             led_set_kb(1 << USB_LED_BL);
+    //         }
+    //     }
+    // #else
+        ISR(TIMER1_OVF_vect)
+        {
+            if (OCR1B != 0) {
+                led_set_kb(1 << USB_LED_BL);
+            }
+        }
+    // #endif
 #endif
 
 void led_set_keymap(uint8_t usb_led) {
