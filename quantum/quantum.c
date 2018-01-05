@@ -1047,9 +1047,6 @@ static inline uint16_t scale_backlight(uint16_t v) {
  * about 244 times per second.
  */
 
-// __attribute__ ((weak))
-// void led_interrupt_user(void) {}
-
 ISR(TIMER1_OVF_vect)
 {
   uint16_t interval = (uint16_t) breathing_period * 244 / BREATHING_STEPS;
@@ -1064,9 +1061,6 @@ ISR(TIMER1_OVF_vect)
   }
 
   set_pwm(cie_lightness(scale_backlight((uint16_t) pgm_read_byte(&breathing_table[index]) * 0x0101U)));
-  // // #ifdef LED_INTERRUPT_USER
-  //   led_interrupt_user();
-  // // #endif
 }
 
 #endif // BACKLIGHT_BREATHING
