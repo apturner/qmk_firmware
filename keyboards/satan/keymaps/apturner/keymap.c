@@ -19,7 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "satan.h"
 
 /* TO DO
- * Add mouse control layer, perhaps with exit key like the Plover layer
  * Fix left shift and tap dancing
  * Add power button
  * Fix LED breathing
