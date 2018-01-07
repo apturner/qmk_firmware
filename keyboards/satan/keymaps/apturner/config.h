@@ -66,12 +66,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // #define BREATHING_PERIOD 6
 
 /* Underlight configuration */
-#define RGB_DI_PIN E2
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+// #define RGB_DI_PIN E2
+// #define RGBLIGHT_ANIMATIONS
+// #define RGBLED_NUM 8     // Number of LEDs
+// #define RGBLIGHT_HUE_STEP 10
+// #define RGBLIGHT_SAT_STEP 17
+// #define RGBLIGHT_VAL_STEP 17
 
 /*
 Feature disable options
@@ -96,5 +96,12 @@ These options are also useful to firmware size reduction.
 #define GRAVE_ESC_CTRL_OVERRIDE
 
 // #define TAPPING_TERM 100
+
+#define MOUSEKEY_DELAY             300
+#define MOUSEKEY_INTERVAL          50
+#define MOUSEKEY_MAX_SPEED         10
+#define MOUSEKEY_TIME_TO_MAX       20
+#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
 #endif
