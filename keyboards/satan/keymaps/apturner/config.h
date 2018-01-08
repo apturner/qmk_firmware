@@ -91,7 +91,7 @@ These options are also useful to firmware size reduction.
 //#define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define GRAVE_ESC_GUI_OVERRIDE
+// #define GRAVE_ESC_GUI_OVERRIDE
 #define GRAVE_ESC_ALT_OVERRIDE
 #define GRAVE_ESC_CTRL_OVERRIDE
 
@@ -99,9 +99,9 @@ These options are also useful to firmware size reduction.
 
 #define MOUSEKEY_DELAY             300
 #define MOUSEKEY_INTERVAL          50
-#define MOUSEKEY_MAX_SPEED         10
+#define MOUSEKEY_MAX_SPEED         8
 #define MOUSEKEY_TIME_TO_MAX       20
-#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_MAX_SPEED   5
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
 #endif
