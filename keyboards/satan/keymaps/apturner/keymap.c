@@ -61,7 +61,9 @@ enum satan_keycodes {
 #define FN1_SPC LT(_FN1, KC_SPC) // Tap for Space, hold for NUM layer
 #define SOFT_UN LGUI(KC_U)       // Soft undo in Sublime
 #define SOFT_RE SCMD(KC_U)       // Soft redo in Sublime
-#define TAB_HYP ALL_T(KC_TAB)   // Tap for Tab, hold for Hyper
+#define TAB_HYP ALL_T(KC_TAB)    // Tap for Tab, hold for Hyper
+#define MAC_DIM KC_F14           // Mac brightness down
+#define MAC_BRI KC_F15           // Mac brightness up
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _QWERTY: (Base Layer) Default Layer
@@ -130,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-------------------------------------------------------------------------|
      * |RESET |    |    |    |    |    |    |    |    |    |BRTG|BL- |BL+ |BL_TOG|
      * |-------------------------------------------------------------------------|
-     * |       |    |PREV| PP |NEXT|    |    |    |    |    |    |    |          |
+     * |       |    |PREV| PP |NEXT|    |    |    |    |    |BDN |BUP |          |
      * |-------------------------------------------------------------------------|
      * |         |    |    |    |    |    |    |    |MUTE| V- | V+ |             |
      * |-------------------------------------------------------------------------|
@@ -140,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJ] = KEYMAP_ANSI(
         KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____, ____,    ____, AG_SWAP, AG_NORM,    ____, \
           RESET, ____, ____,    ____, ____, ____, ____, ____, ____, ____, BL_BRTG,  BL_DEC,  BL_INC, BL_TOGG, \
-           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____, ____,    ____,    ____,             ____, \
+           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____, ____, MAC_DIM, MAC_BRI  ,             ____, \
            ____,       ____,    ____, ____, ____, ____, ____, ____, MUTE,    VOLD,    VOLU,             ____, \
            ____, ____, ____,                      ____,                      ____,    ____,    ____,   ____),
 };
