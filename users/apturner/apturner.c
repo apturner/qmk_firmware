@@ -32,7 +32,7 @@ void matrix_scan_keymap(void) {}
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    return true;
+    return true; // Process all other keycodes normally
 }
 __attribute__ ((weak))
 uint32_t layer_state_set_keymap (uint32_t state) {
@@ -55,6 +55,23 @@ void matrix_scan_user(void) {
     matrix_scan_keymap();
 }
 
+// For conditioning on which OS
+bool osx = true;
+void conditional_key(bool condition, uint16_t keycode_true, uint16_t keycode_false, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (condition) {
+            register_code16(keycode_true);
+        } else {
+            register_code16(keycode_false);
+        }
+    } else {
+        if (condition) {
+            unregister_code16(keycode_true);
+        } else {
+            unregister_code16(keycode_false);
+        }
+    }
+}
 
 // Defines actions for global custom keycodes. Defined in apturner.h file
 // Then runs the _keymap's record handier if not processed here,
@@ -76,6 +93,58 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case AG_NORM:
+            if (record->event.pressed) {
+                osx = true;
+            }
+            return true; // Let QMK send the press/release events
+            break; // Exit switch
+        case AG_SWAP:
+            if (record->event.pressed) {
+                osx = false;
+            }
+            return true; // Let QMK send the press/release events
+            break; // Exit switch
+        case NEXT:
+            conditional_key(osx, KC_MFFD, KC_MNXT, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case PREV:
+            conditional_key(osx, KC_MRWD, KC_MPRV, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case MUTE:
+            conditional_key(osx, KC__MUTE, KC_MUTE, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case VOLD:
+            conditional_key(osx, KC__VOLDOWN, KC_VOLD, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case VOLU:
+            conditional_key(osx, KC__VOLUP, KC_VOLU, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case UNDO:
+            conditional_key(osx, LGUI(KC_Z), KC_UNDO, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case REDO:
+            conditional_key(osx, SCMD(KC_Z), KC_AGAIN, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case CUT:
+            conditional_key(osx, LGUI(KC_X), KC_CUT, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case COPY:
+            conditional_key(osx, LGUI(KC_C), KC_COPY, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
+        case PASTE:
+            conditional_key(osx, LGUI(KC_V), KC_PASTE, record);
+            return false; // Skip all further processing of this key
+            break; // Exit switch
 
     }
     return process_record_keymap(keycode, record);

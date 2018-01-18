@@ -22,7 +22,26 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 enum custom_keycodes {
 	KC_MAKE = SAFE_RANGE,
+	NEXT,
+    PREV,
+    MUTE,
+    VOLD,
+    VOLU,
+    UNDO,
+    REDO,
+    CUT,
+    COPY,
+    PASTE,
 	NEW_SAFE_RANGE  //use NEW_SAFE_RANGE for keymap specific codes
-}; 
+};
+
+// Custom macros
+#define ____ KC_TRNS
+#define XXXX KC_NO
+
+#define SOFT_UN LGUI(KC_U)       // Soft undo in Sublime
+#define SOFT_RE SCMD(KC_U)       // Soft redo in Sublime
+#define MAC_DIM KC_F14           // Mac brightness down
+#define MAC_BRI KC_F15           // Mac brightness up
 
 #endif

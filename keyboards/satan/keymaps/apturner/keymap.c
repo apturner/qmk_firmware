@@ -37,16 +37,7 @@ enum satan_layers {
 
 // Keycode declarations
 enum satan_keycodes {
-    NEXT = NEW_SAFE_RANGE,
-    PREV,
-    MUTE,
-    VOLD,
-    VOLU,
-    UNDO,
-    REDO,
-    CUT,
-    COPY,
-    PASTE,
+    PLACEHOLDER = NEW_SAFE_RANGE,
 };
 
 // Tap Dance declarations
@@ -54,16 +45,9 @@ enum satan_keycodes {
 //     TD_SHIFT,
 // };
 
-#define ____ KC_TRNS
-#define XXXX KC_NO
-
 // Custom macros
 #define FN1_SPC LT(_FN1, KC_SPC) // Tap for Space, hold for NUM layer
-#define SOFT_UN LGUI(KC_U)       // Soft undo in Sublime
-#define SOFT_RE SCMD(KC_U)       // Soft redo in Sublime
 #define TAB_HYP ALL_T(KC_TAB)    // Tap for Tab, hold for Hyper
-#define MAC_DIM KC_F14           // Mac brightness down
-#define MAC_BRI KC_F15           // Mac brightness up
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _QWERTY: (Base Layer) Default Layer
@@ -74,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-------------------------------------------------------------------------|
      * |  FN2  | A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  |  RETURN  |
      * |-------------------------------------------------------------------------|
-     * | SHIFT(  | Z  | X  | C  | V  | B  | N  | M  | ,  | .  | /  |   SHIFT)    |
+     * | LSHIFT( | Z  | X  | C  | V  | B  | N  | M  | ,  | .  | /  |   RSHIFT)   |
      * |-------------------------------------------------------------------------|
-     * |CTRL | ALT | GUI |          SPACE/FN1          | GUI  | ALT  | FN2 |CTRL |
+     * |LCTRL|LALT |LGUI |          SPACE/FN1          | RGUI | RALT | FN2 |RCTRL|
      * `-------------------------------------------------------------------------'
      */
     [_QWERTY] = KEYMAP_ANSI(
@@ -153,24 +137,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     [TD_SHIFT]  = ACTION_TAP_DANCE_DOUBLE(KC_LSPO, KC_CAPS),
 // };
 
-// For conditioning on which OS
-bool osx = true;
-void conditional_key(bool condition, uint16_t keycode_true, uint16_t keycode_false, keyrecord_t *record) {
-    if (record->event.pressed) {
-        if (condition) {
-            register_code16(keycode_true);
-        } else {
-            register_code16(keycode_false);
-        }
-    } else {
-        if (condition) {
-            unregister_code16(keycode_true);
-        } else {
-            unregister_code16(keycode_false);
-        }
-    }
-}
-
 void matrix_init_keymap(void) {
     // OS conditioning setup
     if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
@@ -242,60 +208,4 @@ void led_set_keymap(uint8_t usb_led) {
     #endif
 }
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case AG_NORM:
-            if (record->event.pressed) {
-                osx = true;
-            }
-            return true; // Let QMK send the press/release events
-            break; // Exit switch
-        case AG_SWAP:
-            if (record->event.pressed) {
-                osx = false;
-            }
-            return true; // Let QMK send the press/release events
-            break; // Exit switch
-        case NEXT:
-            conditional_key(osx, KC_MFFD, KC_MNXT, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case PREV:
-            conditional_key(osx, KC_MRWD, KC_MPRV, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case MUTE:
-            conditional_key(osx, KC__MUTE, KC_MUTE, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case VOLD:
-            conditional_key(osx, KC__VOLDOWN, KC_VOLD, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case VOLU:
-            conditional_key(osx, KC__VOLUP, KC_VOLU, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case UNDO:
-            conditional_key(osx, LGUI(KC_Z), KC_UNDO, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case REDO:
-            conditional_key(osx, SCMD(KC_Z), KC_AGAIN, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case CUT:
-            conditional_key(osx, LGUI(KC_X), KC_CUT, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case COPY:
-            conditional_key(osx, LGUI(KC_C), KC_COPY, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-        case PASTE:
-            conditional_key(osx, LGUI(KC_V), KC_PASTE, record);
-            return false; // Skip all further processing of this key
-            break; // Exit switch
-    }
-    return true; // Process all other keycodes normally
-}
+
