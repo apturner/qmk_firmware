@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Keymap _FN2: Function Layer
      *  -------------------------------------------------------------------------.
-     * |MAKE|    |    |    |    |    |    |    |    |    |    |SWAP|NORM|        |
+     * |MAKE|    |    |    |    |    |    |    |    |    |    |SWAP|NORM| SLEEP  |
      * |-------------------------------------------------------------------------|
      * |RESET |    |    |    |    |    |    |    |    |    |BRTG|BL- |BL+ |BL_TOG|
      * |-------------------------------------------------------------------------|
@@ -124,14 +124,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------'
      */
     [_ADJ] = KEYMAP_ANSI(
-        KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____, ____,    ____, AG_SWAP, AG_NORM,    ____, \
+        KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____, ____,    ____, AG_SWAP, AG_NORM, KC_SLEP, \
           RESET, ____, ____,    ____, ____, ____, ____, ____, ____, ____, BL_BRTG,  BL_DEC,  BL_INC, BL_TOGG, \
-           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____, ____, MAC_DIM, MAC_BRI  ,             ____, \
+           ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____, ____, MAC_DIM, MAC_BRI,             ____, \
            ____,       ____,    ____, ____, ____, ____, ____, ____, MUTE,    VOLD,    VOLU,             ____, \
            ____, ____, ____,                      ____,                      ____,    ____,    ____,   ____),
 };
 
-//Tap Dance definitions
+// Tap Dance definitions
 // qk_tap_dance_action_t tap_dance_actions[] = {
 //     //Tap once for Shift, twice for Caps Lock
 //     [TD_SHIFT]  = ACTION_TAP_DANCE_DOUBLE(KC_LSPO, KC_CAPS),
