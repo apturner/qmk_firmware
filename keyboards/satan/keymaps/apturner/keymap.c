@@ -31,7 +31,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 enum satan_layers {
     _QWERTY,
     _FN1,
-    _FN2,
+    _NUM,
     _ADJ,
 };
 
@@ -56,17 +56,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-------------------------------------------------------------------------|
      * |TABHYP| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  | [  | ]  |  \   |
      * |-------------------------------------------------------------------------|
-     * |  FN2  | A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  |  RETURN  |
+     * |  NUM  | A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  |  RETURN  |
      * |-------------------------------------------------------------------------|
      * | LSHIFT( | Z  | X  | C  | V  | B  | N  | M  | ,  | .  | /  |   RSHIFT)   |
      * |-------------------------------------------------------------------------|
-     * |LCTRL|LALT |LGUI |          SPACE/FN1          | RGUI | RALT | FN2 |RCTRL|
+     * |LCTRL|LALT |LGUI |          SPACE/FN1          | RGUI | RALT | ADJ |RCTRL|
      * `-------------------------------------------------------------------------'
      */
     [_QWERTY] = KEYMAP_ANSI(
          KC_GESC,    KC_1,    KC_2, KC_3, KC_4, KC_5,    KC_6, KC_7, KC_8,    KC_9,    KC_0,  KC_MINS,   KC_EQL,  KC_BSPC, \
          TAB_HYP,    KC_Q,    KC_W, KC_E, KC_R, KC_T,    KC_Y, KC_U, KC_I,    KC_O,    KC_P,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
-        MO(_FN2),    KC_A,    KC_S, KC_D, KC_F, KC_G,    KC_H, KC_J, KC_K,    KC_L, KC_SCLN,  KC_QUOT,             KC_ENT, \
+        MO(_NUM),    KC_A,    KC_S, KC_D, KC_F, KC_G,    KC_H, KC_J, KC_K,    KC_L, KC_SCLN,  KC_QUOT,             KC_ENT, \
          KC_LSPO,             KC_Z, KC_X, KC_C, KC_V,    KC_B, KC_N, KC_M, KC_COMM,  KC_DOT,  KC_SLSH,            KC_RSPC, \
          KC_LCTL, KC_LALT, KC_LGUI,                   FN1_SPC,                      KC_RGUI,  KC_RALT, MO(_ADJ), KC_RCTL),
 
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ____,             ____,    ____,    ____,    ____, KC_HOME, KC_PGUP, KC_PGDN,  KC_END,  KC_INS,   ____,           ____, \
         ____,    ____,    ____,                               ____,                               ____,   ____,   ____,  ____),
 
-    /* Keymap _NUM: Keypad Layer
+    /* Keymap _NUM: Numpad Layer
      *  -------------------------------------------------------------------------.
      * |    |    |    |    |    |    |    |EQLS|DIVD|TIMS|BACK|    |    |        |
      * |-------------------------------------------------------------------------|
@@ -103,14 +103,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |     |     |     |            NUM0             | DOT  |COMMA |     |     |
      * `-------------------------------------------------------------------------'
      */
-    [_FN2] = KEYMAP_ANSI(
+    [_NUM] = KEYMAP_ANSI(
         ____, ____, ____, ____,    ____,    ____, ____, KC_PEQL, KC_PSLS, KC_PAST, KC_BSPC,    ____, ____,  ____, \
         ____, ____, ____, UNDO,    REDO,    ____, ____,   KC_P7,   KC_P8,   KC_P9, KC_PMNS,    ____, ____,  ____, \
         ____, ____,  CUT, COPY,   PASTE,    ____, ____,   KC_P4,   KC_P5,   KC_P6, KC_PPLS,    ____,        ____, \
         ____,       ____, ____, SOFT_UN, SOFT_RE, ____,    ____,   KC_P1,   KC_P2,   KC_P3, KC_PENT,        ____, \
         ____, ____, ____,                        KC_P0,                            KC_PDOT, KC_PCMM, ____, ____),
 
-    /* Keymap _FN2: Function Layer
+    /* Keymap _ADJ: Adjust Layer
      *  -------------------------------------------------------------------------.
      * |MAKE|    |    |    |    |    |    |    |    |    |    |SWAP|NORM| SLEEP  |
      * |-------------------------------------------------------------------------|
