@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H_APTURNER
-#define CONFIG_H_APTURNER
+#ifndef CONFIG_APTURNER_H
+#define CONFIG_APTURNER_H
 
 #include "config_common.h"
 
