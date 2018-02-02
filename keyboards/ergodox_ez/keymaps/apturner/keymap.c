@@ -33,49 +33,51 @@ enum ergodox_ez_keycodes {
 	RGB_SLD
 };
 
-#define FN1_TAB LT(_FN1, KC_TAB) // Tap for Space, hold for NUM layer
+#define FN1_ENT LT(_FN1, KC_ENT) // Tap for Space, hold for NUM layer
+#define HYP_T   ALL_T(KC_T)      // Hyper + T
+#define HYP_Y   ALL_T(KC_Y)      // Hyper + Y
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Keymap _QWERTY: Default layer
 	 *
 	 * .--------------------------------------------------.           .--------------------------------------------------.
-	 * |   `    |  1   |  2   |  3   |  4   |  5   | CAG  |           | CAG  |  6   |  7   |  8   |  9   |  0   | BACKSP |
+	 * |   `    |  1   |  2   |  3   |  4   |  5   | ESC  |           | CAG  |  6   |  7   |  8   |  9   |  0   |  DEL   |
 	 * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-	 * |  TAB   |  Q   |  W   |  E   |  R   |  T   |HYPER |           |HYPER |  Y   |  U   |  I   |  O   |  P   |   \    |
+	 * |  TAB   |  Q   |  W   |  E   |  R   |  T   |HYP_T |           |HYP_Y |  Y   |  U   |  I   |  O   |  P   |   \    |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 	 * |  NUM   |  A   |  S   |  D   |  F   |  G   |------|           |------|  H   |  J   |  K   |  L   |  ;   |   '    |
-	 * |--------+------+------+------+------+------| MEH  |           | MEH  |------+------+------+------+------+--------|
+	 * |--------+------+------+------+------+------| UNDO |           | REDO |------+------+------+------+------+--------|
 	 * |LSHIFT( |  Z   |  X   |  C   |  V   |  B   |      |           |      |  N   |  M   |  ,   |  .   |  /   |RSHIFT) |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
-	 *   | CAPS | LCTL | LALT | LGUI | ESC  |                                       |  [   |  ]   |  -   |  =   | ADJ  |
+	 *   | CAPS | MEH  | LCTL | LALT | LGUI |                                       |  [   |  ]   |  -   |  =   | ADJ  |
 	 *   '----------------------------------'                                       '----------------------------------'
 	 *                                        .-------------.       .-------------.
-	 *                                        | HOME | END  |       | RCTL | DEL  |
+	 *                                        | HOME | END  |       | RCTL | MEH  |
 	 *                                 .------|------|------|       |------+------+------.
 	 *                                 |      |      | PGUP |       | RALT |      |      |
-	 *                                 |SPACE | TAB/ |------|       |------|ENTER |BACKSP|
-	 *                                 |      | FN1  | PGDN |       | RGUI |      |      |
+	 *                                 |SPACE |HYPER |------|       |------| RGUI |ENTER/|
+	 *                                 |      |      | PGDN |       | BACK |      | FN1  |
 	 *                                 '--------------------'       '--------------------'
 	 */
 	[_QWERTY] = LAYOUT_ergodox(
 		// left hand
-		  KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     CAG,
-		  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_HYPR,
+		  KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_ESC,
+		  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   HYP_T,
 		MO(_NUM),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-		 KC_LSPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_MEH,
-		 KC_CAPS, KC_LCTL, KC_LALT, KC_LGUI,  KC_ESC,
+		 KC_LSPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    UNDO,
+		 KC_CAPS,  KC_MEH, KC_LCTL, KC_LALT, KC_LGUI,
 		                                              KC_HOME,  KC_END,
 		                                                       KC_PGUP,
-		                                      KC_SPC, FN1_TAB, KC_PGDN,
+		                                      KC_SPC, KC_HYPR, KC_PGDN,
 		// right hand
-		    CAG,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
-		KC_HYPR,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
-		           KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
-		 KC_MEH,   KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSPC,
-		                 KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, MO(_ADJ),
-		KC_RCTL, KC_DEL,
+		    CAG,   KC_6,     KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
+		  HYP_Y,    KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
+		            KC_H,     KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
+		   REDO,    KC_N,     KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSPC,
+		                   KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, MO(_ADJ),
+		KC_RCTL,  KC_MEH,
 		KC_RALT,
-		KC_RGUI, KC_ENT, KC_BSPC),
+		KC_BSPC, KC_RGUI, FN1_ENT),
 
 	/* Keymap _FN1: Function Layer
 	 *
@@ -88,13 +90,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 	 * |        |      |      |      |      |      |      |           |      | HOME | PGUP | PGDN | END  | INS  |        |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
-	 *   |      |      |      |      |      |                                       |      |      |      |      |      |
+	 *   |      |      |      | BTN2 | BTN1 |                                       |      |      |      |      |      |
 	 *   '----------------------------------'                                       '----------------------------------'
 	 *                                        .-------------.       .-------------.
 	 *                                        |      |      |       |      |      |
 	 *                                 .------|------|------|       |------+------+------.
 	 *                                 |      |      |      |       |      |      |      |
-	 *                                 |      |      |------|       |------| BTN2 | BTN1 |
+	 *                                 |      |      |------|       |------|      |      |
 	 *                                 |      |      |      |       |      |      |      |
 	 *                                 '--------------------'       '--------------------'
 	 */
@@ -104,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		____, KC_WH_L, KC_WH_D, KC_MS_U, KC_WH_U, KC_WH_R, ____,
 		____, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1,
 		____,    ____,    ____,    ____,    ____,    ____, ____,
-		____,    ____,    ____,    ____,    ____,
+		____,    ____,    ____, KC_BTN2, KC_BTN1,
 		                                             ____, ____,
 		                                                   ____,
 		                                    ____,    ____, ____,
@@ -116,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		                   ____,    ____,    ____,    ____,   ____,
 		____,    ____,
 		____,
-		____, KC_BTN2, KC_BTN1),
+		____,    ____,    ____),
 
 	/* Keymap _NUM: Numpad layer
 	 *
@@ -162,9 +164,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Keymap _ADJ: Adjust layer
 	 *
 	 * .--------------------------------------------------.           .--------------------------------------------------.
-	 * |  MAKE  |      |      |      |      |      |      |           |      |      |      |      | SWAP | NORM | SLEEP  |
+	 * | RESET  |      |      |      |      |      |      |           |      |      |      |      | SWAP | NORM | SLEEP  |
 	 * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-	 * | RESET  |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+	 * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 	 * |        |      | PREV |  PP  | NEXT |      |------|           |------|      |      |      | BDN  | BUP  |        |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -182,14 +184,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 */
 	[_ADJ] = LAYOUT_ergodox(
 		// left hand
-		KC_MAKE, ____, ____,    ____,    ____,    ____, ____,
-		  RESET, ____, ____,    ____,    ____,    ____, ____,
-		   ____, ____, PREV, KC_MPLY,    NEXT,    ____,
-		   ____, ____, ____,    ____,    ____,    ____, ____,
-		   ____, ____, ____,    ____,    ____,
-		                                       RGB_MOD, ____,
-		                                                ____,
-		                              RGB_VAD, RGB_VAI, ____,
+		RESET, ____, ____,    ____,    ____,    ____, ____,
+		 ____, ____, ____,    ____,    ____,    ____, ____,
+		 ____, ____, PREV, KC_MPLY,    NEXT,    ____,
+		 ____, ____, ____,    ____,    ____,    ____, ____,
+		 ____, ____, ____,    ____,    ____,
+		                                     RGB_MOD, ____,
+		                                              ____,
+		                            RGB_VAD, RGB_VAI, ____,
 		// right hand
 		   ____,    ____,     ____, ____, AG_SWAP, AG_NORM, KC_SLEP,
 		   ____,    ____,     ____, ____,    ____,    ____,    ____,

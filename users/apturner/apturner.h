@@ -43,5 +43,8 @@ enum custom_keycodes {
 #define SOFT_RE SCMD(KC_U)       // Soft redo in Sublime
 #define MAC_DIM KC_F14           // Mac brightness down
 #define MAC_BRI KC_F15           // Mac brightness up
+#define CAG LCTL(LALT(KC_LGUI))  // Ctrl-Alt-Gui
+
+extern bool osx;
 
 #endif

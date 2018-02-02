@@ -1,21 +1,24 @@
-# Co(pyright 2017 Andrew Turner <apturner@mit.edu> @apturner
+#----------------------------------------------------------------------------
+# On command line:
+#
+# make = Make software.
+#
+# make clean = Clean out built project files.
+#
+# That's pretty much all you need. To compile, always go make clean,
+# followed by make.
+#
+# For advanced users only:
+# make teensy = Download the hex file to the device, using teensy_loader_cli.
+#               (must have teensy_loader_cli installed).
+#
+#----------------------------------------------------------------------------
 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 2 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+# # project specific files
+SRC = twimaster.c \
+	  matrix.c
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -51,39 +54,36 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
-# Bootloader (Correctly defines boot section size)
+# Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
-BOOTLOADER = lufa-dfu
+BOOTLOADER = halfkay
+
+# Interrupt driven control endpoint task(+60)
+OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+
+# If you have Left LEDs (see
+# https://geekhack.org/index.php?topic=22780.msg873819#msg873819 for
+# details), include the following define:
+# OPT_DEFS += -DLEFT_LEDS
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no 	# Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no()	# Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE  = yes	# Mouse keys(+4700)
 EXTRAKEY_ENABLE  = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE   = no	# Console for debug(+400)
-COMMAND_ENABLE   = yes  # Commands for debug and configuration
+COMMAND_ENABLE   = yes	# Commands for debug and configuration
+CUSTOM_MATRIX    = yes	# Custom matrix file for the ErgoDox EZ
 NKRO_ENABLE      = yes	# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE  = no   # Enable keyboard underlight functionality (+4870)
-BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
-MIDI_ENABLE      = no 	# MIDI controls
-AUDIO_ENABLE     = no 	# Enable audio
-UNICODE_ENABLE   = no 	# Unicode
+UNICODE_ENABLE   = no	# Unicode
+ONEHAND_ENABLE   = yes	# Allow swapping hands of keyboard
+SLEEP_LED_ENABLE = no
+API_SYSEX_ENABLE = no
+RGBLIGHT_ENABLE  = yes
 BLUETOOTH_ENABLE = no 	# Enable Bluetooth with the Adafruit EZ-Key HID
 TAP_DANCE_ENABLE = no	# Enable tap dancing (+~1000)
 
-LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift
+LAYOUTS = ergodox
