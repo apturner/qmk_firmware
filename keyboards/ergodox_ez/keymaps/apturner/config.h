@@ -41,8 +41,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #undef MOUSEKEY_WHEEL_TIME_TO_MAX
 #undef MOUSEKEY_WHEEL_DELAY
 #define MOUSEKEY_DELAY             200
-#define MOUSEKEY_INTERVAL          50
-#define MOUSEKEY_MAX_SPEED         10
+#define MOUSEKEY_INTERVAL          15
+#define MOUSEKEY_MAX_SPEED         8
 #define MOUSEKEY_TIME_TO_MAX       10
 #define MOUSEKEY_WHEEL_MAX_SPEED   5
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 10
