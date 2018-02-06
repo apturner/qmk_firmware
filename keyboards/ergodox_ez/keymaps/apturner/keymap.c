@@ -33,7 +33,7 @@ enum ergodox_ez_keycodes {
 	RGB_SLD
 };
 
-#define FN1_ENT LT(_FN1, KC_ENT) // Tap for Space, hold for NUM layer
+#define FN1_BSPC LT(_FN1, KC_BSPC) // Tap for Space, hold for NUM layer
 #define HYP_T   HYPR(KC_T)      // Hyper + T
 #define HYP_Y   HYPR(KC_Y)      // Hyper + Y
 
@@ -55,8 +55,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 *                                        | HOME | END  |       | RCTL | MEH  |
 	 *                                 .------|------|------|       |------+------+------.
 	 *                                 |      |      | PGUP |       | RALT |      |      |
-	 *                                 |SPACE |HYPER |------|       |------| RGUI |ENTER/|
-	 *                                 |      |      | PGDN |       |BACKSP|      | FN1  |
+	 *                                 |SPACE |HYPER |------|       |------| RGUI |BACKSP|
+	 *                                 |      |      | PGDN |       |ENTER |      | /FN1 |
 	 *                                 '--------------------'       '--------------------'
 	 */
 	[_QWERTY] = LAYOUT_ergodox(
@@ -70,14 +70,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		                                                       KC_PGUP,
 		                                      KC_SPC, KC_HYPR, KC_PGDN,
 		// right hand
-		  HYP_Y,   KC_6,     KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
-		    CAG,    KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
-		            KC_H,     KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
-		   REDO,    KC_N,     KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSPC,
-		                   KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, MO(_ADJ),
+		  HYP_Y,    KC_6,      KC_7,    KC_8,    KC_9,    KC_0,   KC_DEL,
+		    CAG,    KC_Y,      KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
+		            KC_H,      KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
+		   REDO,    KC_N,      KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSPC,
+		                    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, MO(_ADJ),
 		KC_RCTL,  KC_MEH,
 		KC_RALT,
-		KC_BSPC, KC_RGUI, FN1_ENT),
+		 KC_ENT, KC_RGUI, FN1_BSPC),
 
 	/* Keymap _FN1: Function Layer
 	 *
