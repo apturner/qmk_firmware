@@ -9,7 +9,7 @@ the Free Software Foundation, either version 2 of the License, or
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+GNU General Public License for more details.This is a test of my ability to type on something like this thing. This is going to take some getting used to, especially on the bottom row, but that should be fine I think
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 enum custom_keycodes {
 	KC_MAKE = SAFE_RANGE,
+    TOGG_OS,
 	NEXT,
     PREV,
     MUTE,
@@ -44,6 +45,7 @@ enum custom_keycodes {
 #define MAC_DIM KC_F14           // Mac brightness down
 #define MAC_BRI KC_F15           // Mac brightness up
 #define CAG LCTL(LALT(KC_LGUI))  // Ctrl-Alt-Gui
+#define SAG LSFT(LALT(KC_LGUI))  // Shift-Alt-Gui
 
 extern bool osx;
 

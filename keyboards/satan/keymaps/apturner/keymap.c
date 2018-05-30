@@ -46,7 +46,7 @@ enum satan_keycodes {
 // };
 
 // Custom macros
-#define FN1_SPC LT(_FN1, KC_SPC) // Tap for Space, hold for NUM layer
+#define FN1_SPC LT(_FN1, KC_SPC) // Tap for Space, hold for FN1 layer
 #define TAB_HYP ALL_T(KC_TAB)    // Tap for Tab, hold for Hyper
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_LCTL, KC_LALT, KC_LGUI,                   FN1_SPC,                      KC_RGUI,  KC_RALT, MO(_ADJ), KC_RCTL),
 
     /* Keymap _FN1: Function Layer
-     *  -------------------------------------------------------------------------.
+     * ,-------------------------------------------------------------------------.
      * |    | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 |F10 |F11 |F12 |  DEL   |
      * |-------------------------------------------------------------------------|
      * |      |WLLF|WLDN|MSUP|WLUP|WLRT|    |ACL1| UP |ACL0|ACL2|    |    |      |
