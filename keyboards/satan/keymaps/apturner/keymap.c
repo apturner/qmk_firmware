@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Andrew Turner <apturner@mit.edu> @apturner
+Copyright 2018 Andrew Turner <apturner@mit.edu> @apturner
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,11 +33,15 @@ enum satan_layers {
     _FN1,
     _NUM,
     _ADJ,
+    _GAME,
+    _GAMEFN,
 };
 
 // Keycode declarations
 enum satan_keycodes {
     PLACEHOLDER = NEW_SAFE_RANGE,
+    GAME,
+    EXT_GAME
 };
 
 // Tap Dance declarations
@@ -63,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |LCTRL|LALT |LGUI |          SPACE/FN1          | RGUI | RALT | ADJ |RCTRL|
      * `-------------------------------------------------------------------------'
      */
-    [_QWERTY] = KEYMAP_ANSI(
+    [_QWERTY] = LAYOUT_60_ansi(
          KC_GESC,    KC_1,    KC_2, KC_3, KC_4, KC_5,    KC_6, KC_7, KC_8,    KC_9,    KC_0,  KC_MINS,   KC_EQL,  KC_BSPC, \
          TAB_HYP,    KC_Q,    KC_W, KC_E, KC_R, KC_T,    KC_Y, KC_U, KC_I,    KC_O,    KC_P,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
         MO(_NUM),    KC_A,    KC_S, KC_D, KC_F, KC_G,    KC_H, KC_J, KC_K,    KC_L, KC_SCLN,  KC_QUOT,             KC_ENT, \
@@ -74,20 +78,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-------------------------------------------------------------------------.
      * |    | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 |F10 |F11 |F12 |  DEL   |
      * |-------------------------------------------------------------------------|
-     * |      |WLLF|WLDN|MSUP|WLUP|WLRT|    |ACL1| UP |ACL0|ACL2|    |    |      |
+     * |      |WLLF|WLDN|MSUP|WLUP|WLRT|PGUP|ACL1| UP |ACL0|ACL2|    |    |      |
      * |-------------------------------------------------------------------------|
-     * |       |BTN2|MSLF|MSDN|MSRT|BTN1|BTN1|LEFT|DOWN|RGHT|    | `  |          |
+     * |       |BTN2|MSLF|MSDN|MSRT|BTN1|PGDN|LEFT|DOWN|RGHT|    | `  |          |
      * |-------------------------------------------------------------------------|
-     * |         |    |    |    |    |HOME|PGUP|PGDN|END |INS |    |             |
+     * |         |    |    |    |    |    |BTN1|HOME|END |INS |    |             |
      * |-------------------------------------------------------------------------|
      * |     |     |     |                             |      |      |     |     |
      * `-------------------------------------------------------------------------'
      */
-    [_FN1] = KEYMAP_ANSI(
+    [_FN1] = LAYOUT_60_ansi(
         ____,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL, \
-        ____, KC_WH_L, KC_WH_D, KC_MS_U, KC_WH_U, KC_WH_R,    ____, KC_ACL1,   KC_UP, KC_ACL0, KC_ACL2,   ____,   ____,   ____, \
-        ____, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_BTN1, KC_LEFT, KC_DOWN, KC_RGHT,    ____, KC_GRV,           ____, \
-        ____,             ____,    ____,    ____,    ____, KC_HOME, KC_PGUP, KC_PGDN,  KC_END,  KC_INS,   ____,           ____, \
+        ____, KC_WH_L, KC_WH_D, KC_MS_U, KC_WH_U, KC_WH_R, KC_PGUP, KC_ACL1,   KC_UP, KC_ACL0, KC_ACL2,   ____,   ____,   ____, \
+        ____, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,    ____, KC_GRV,           ____, \
+        ____,             ____,    ____,    ____,    ____,    ____, KC_BTN1, KC_HOME,  KC_END,  KC_INS,   ____,           ____, \
         ____,    ____,    ____,                               ____,                               ____,   ____,   ____,  ____),
 
     /* Keymap _NUM: Numpad Layer
@@ -103,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |     |     |     |            NUM0             | DOT  |COMMA |     |     |
      * `-------------------------------------------------------------------------'
      */
-    [_NUM] = KEYMAP_ANSI(
+    [_NUM] = LAYOUT_60_ansi(
         ____, ____, ____, ____,    ____,    ____, ____, KC_PEQL, KC_PSLS, KC_PAST, KC_BSPC,    ____, ____,  ____, \
         ____, ____, ____, UNDO,    REDO,    ____, ____,   KC_P7,   KC_P8,   KC_P9, KC_PMNS,    ____, ____,  ____, \
         ____, ____,  CUT, COPY,   PASTE,    ____, ____,   KC_P4,   KC_P5,   KC_P6, KC_PPLS,    ____,        ____, \
@@ -112,23 +116,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Keymap _ADJ: Adjust Layer
      *  -------------------------------------------------------------------------.
-     * |MAKE|    |    |    |    |    |    |    |    |    |    |SWAP|NORM| SLEEP  |
+     * |MAKE|    |    |    |    |    |    |    |    |    |    | PC |MAC | SLEEP  |
      * |-------------------------------------------------------------------------|
      * |RESET |    |    |    |    |    |    |    |    |    |BRTG|BL- |BL+ |BL_TOG|
      * |-------------------------------------------------------------------------|
      * |       |    |PREV| PP |NEXT|    |    |    |    |    |BDN |BUP |          |
      * |-------------------------------------------------------------------------|
-     * |         |    |    |    |    |    |    |    |MUTE| V- | V+ |             |
+     * |         |    |    |    |    |    |    |    |MUTE| V- | V+ |    GAME     |
      * |-------------------------------------------------------------------------|
      * |     |     |     |                             |      |      |     |     |
      * `-------------------------------------------------------------------------'
      */
-    [_ADJ] = KEYMAP_ANSI(
+    [_ADJ] = LAYOUT_60_ansi(
         KC_MAKE, ____, ____,    ____, ____, ____, ____, ____, ____, ____,    ____, AG_SWAP, AG_NORM, KC_SLEP, \
           RESET, ____, ____,    ____, ____, ____, ____, ____, ____, ____, BL_BRTG,  BL_DEC,  BL_INC, BL_TOGG, \
            ____, ____, PREV, KC_MPLY, NEXT, ____, ____, ____, ____, ____, MAC_DIM, MAC_BRI,             ____, \
-           ____,       ____,    ____, ____, ____, ____, ____, ____, MUTE,    VOLD,    VOLU,             ____, \
+           ____,       ____,    ____, ____, ____, ____, ____, ____, MUTE,    VOLD,    VOLU,             GAME, \
            ____, ____, ____,                      ____,                      ____,    ____,    ____,   ____),
+
+    /* Keymap _GAME: (Game Layer) Gaming Layer
+     * ,-------------------------------------------------------------------------.
+     * |ESC~| 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 0  | -  | =  | BACKSP |
+     * |-------------------------------------------------------------------------|
+     * |TAB   | Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  | [  | ]  |  \   |
+     * |-------------------------------------------------------------------------|
+     * |GAMEFN | A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  | '  |  RETURN  |
+     * |-------------------------------------------------------------------------|
+     * | LSHIFT  | Z  | X  | C  | V  | B  | N  | M  | ,  | .  | /  |   RSHIFT    |
+     * |-------------------------------------------------------------------------|
+     * |LCTRL|LALT |LGUI |            SPACE            | RGUI | RALT |EXIT |RCTRL|
+     * `-------------------------------------------------------------------------'
+     */
+    [_GAME] = LAYOUT_60_ansi(
+            KC_GESC,    KC_1,    KC_2, KC_3, KC_4, KC_5,    KC_6, KC_7, KC_8,    KC_9,    KC_0,  KC_MINS,   KC_EQL,  KC_BSPC, \
+             KC_TAB,    KC_Q,    KC_W, KC_E, KC_R, KC_T,    KC_Y, KC_U, KC_I,    KC_O,    KC_P,  KC_LBRC,  KC_RBRC,  KC_BSLS, \
+        MO(_GAMEFN),    KC_A,    KC_S, KC_D, KC_F, KC_G,    KC_H, KC_J, KC_K,    KC_L, KC_SCLN,  KC_QUOT,             KC_ENT, \
+            KC_LSFT,             KC_Z, KC_X, KC_C, KC_V,    KC_B, KC_N, KC_M, KC_COMM,  KC_DOT,  KC_SLSH,            KC_RSFT, \
+            KC_LCTL, KC_LALT, KC_LGUI,                    KC_SPC,                      KC_RGUI,  KC_RALT, EXT_GAME, KC_RCTL),
+
+    /* Keymap _GAMEFN: Game Function Layer
+     *  -------------------------------------------------------------------------.
+     * |    |    |    |    |    |    |    |    |    |    |    |    |    |        |
+     * |-------------------------------------------------------------------------|
+     * |      |    |PGDN|PGUP|INS |DEL |    |    |    |    |    |    |    |      |
+     * |-------------------------------------------------------------------------|
+     * |       | 0  | 9  | 8  | 7  |    |    |    |    |    |    |    |          |
+     * |-------------------------------------------------------------------------|
+     * |         |    |    | =  |    |    |    |    |    |    |    |             |
+     * |-------------------------------------------------------------------------|
+     * |     |     |     |              M              |      |      |     |     |
+     * `-------------------------------------------------------------------------'
+     */
+    [_GAMEFN] = LAYOUT_60_ansi(
+        ____, ____,    ____,    ____,   ____,   ____, ____, ____, ____, ____, ____, ____, ____, ____, \
+        ____, ____, KC_PGDN, KC_PGUP, KC_INS, KC_DEL, ____, ____, ____, ____, ____, ____, ____, ____, \
+        ____, KC_0,    KC_9,    KC_8,   KC_7,   ____, ____, ____, ____, ____, ____, ____,       ____, \
+        ____,          ____,    ____, KC_EQL,   ____, ____, ____, ____, ____, ____, ____,       ____, \
+        ____, ____,    ____,                          KC_M,                   ____, ____, ____, ____),
 };
 
 // Tap Dance definitions
@@ -208,4 +252,29 @@ void led_set_keymap(uint8_t usb_led) {
     #endif
 }
 
-
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GAME:
+            if (record->event.pressed) {
+                layer_off(_FN1);
+                layer_off(_NUM);
+                layer_off(_ADJ);
+                layer_on(_GAME);
+                if (!eeconfig_is_enabled()) {
+                        eeconfig_init();
+                }
+                keymap_config.raw = eeconfig_read_keymap();
+                keymap_config.nkro = 1;
+                eeconfig_update_keymap(keymap_config.raw);
+            }
+            return false;
+            break;
+        case EXT_GAME:
+            if (record->event.pressed) {
+                layer_off(_GAME);
+            }
+            return false;
+            break;
+    }
+    return true;
+}
