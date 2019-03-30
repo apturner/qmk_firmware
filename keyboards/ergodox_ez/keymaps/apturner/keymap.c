@@ -36,7 +36,7 @@ enum ergodox_ez_keycodes {
     EXT_GAME
 };
 
-#define FN1_BSPC LT(_FN1, KC_BSPC) // Tap for Space, hold for NUM layer
+#define FN1_ENT LT(_FN1, KC_ENT) // Tap for Enter, hold for FN1 layer
 #define HYP_T   HYPR(KC_T)      // Hyper + T
 #define HYP_Y   HYPR(KC_Y)      // Hyper + Y
 
@@ -44,43 +44,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Keymap _QWERTY: Default layer
 	 *
 	 * .--------------------------------------------------.           .--------------------------------------------------.
-	 * |   `    |  1   |  2   |  3   |  4   |  5   |HYP_T |           |HYP_Y |  6   |  7   |  8   |  9   |  0   |  DEL   |
+	 * |   `    |  1   |  2   |  3   |  4   |  5   | ESC  |           | CAG  |  6   |  7   |  8   |  9   |  0   |  DEL   |
 	 * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-	 * |  TAB   |  Q   |  W   |  E   |  R   |  T   | ESC  |           | CAG  |  Y   |  U   |  I   |  O   |  P   |   \    |
+	 * |  TAB   |  Q   |  W   |  E   |  R   |  T   | REDO |           | COPY |  Y   |  U   |  I   |  O   |  P   |   \    |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 	 * |  NUM   |  A   |  S   |  D   |  F   |  G   |------|           |------|  H   |  J   |  K   |  L   |  ;   |   '    |
-	 * |--------+------+------+------+------+------| UNDO |           | REDO |------+------+------+------+------+--------|
+	 * |--------+------+------+------+------+------| UNDO |           |PASTE |------+------+------+------+------+--------|
 	 * |LSHIFT( |  Z   |  X   |  C   |  V   |  B   |      |           |      |  N   |  M   |  ,   |  .   |  /   |RSHIFT) |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
-	 *   | CAPS | MEH  | LCTL | LALT | LGUI |                                       |  [   |  ]   |  -   |  =   | ADJ  |
+	 *   | VOLD | VOLU | LCTL | LALT | LGUI |                                       |  [   |  ]   |  -   |  =   | ADJ  |
 	 *   '----------------------------------'                                       '----------------------------------'
 	 *                                        .-------------.       .-------------.
 	 *                                        | HOME | END  |       | RCTL | MEH  |
 	 *                                 .------|------|------|       |------+------+------.
 	 *                                 |      |      | PGUP |       | RALT |      |      |
-	 *                                 |SPACE |HYPER |------|       |------| RGUI |BACKSP|
-	 *                                 |      |      | PGDN |       |ENTER |      | /FN1 |
+	 *                                 |SPACE |HYPER |------|       |------|BACKSP|ENTER |
+	 *                                 |      |      | PGDN |       | RGUI |      | /FN1 |
 	 *                                 '--------------------'       '--------------------'
 	 */
 	[_QWERTY] = LAYOUT_ergodox(
 		// left hand
-		  KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   HYP_T,
-		  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,  KC_ESC,
-		MO(_NUM),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-		 KC_LSPO,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    UNDO,
-		 KC_CAPS, KC_MEH, KC_LCTL, KC_LALT, KC_LGUI,
-		                                             KC_HOME,  KC_END,
-		                                                      KC_PGUP,
-		                                     KC_SPC, KC_HYPR, KC_PGDN,
+		  KC_GRV, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_ESC,
+		  KC_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    REDO,
+		MO(_NUM), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+		 KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    UNDO,
+		    VOLD, VOLU, KC_LCTL, KC_LALT, KC_LGUI,
+		                                           KC_HOME,  KC_END,
+		                                                    KC_PGUP,
+		                                   KC_SPC, KC_HYPR, KC_PGDN,
 		// right hand
-		  HYP_Y,    KC_6,      KC_7,    KC_8,    KC_9,    KC_0,   KC_DEL,
-		    CAG,    KC_Y,      KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
-		            KC_H,      KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
-		   REDO,    KC_N,      KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSPC,
-		                    KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, MO(_ADJ),
+		    CAG,    KC_6,     KC_7,    KC_8,    KC_9,    KC_0,   KC_DEL,
+		   COPY,    KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
+		            KC_H,     KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
+		  PASTE,    KC_N,     KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSPC,
+		                   KC_LBRC, KC_RBRC, KC_MINS,  KC_EQL, MO(_ADJ),
 		KC_RCTL,  KC_MEH,
 		KC_RALT,
-		 KC_ENT, KC_RGUI, FN1_BSPC),
+		KC_RGUI, KC_BSPC, FN1_ENT),
 
 	/* Keymap _FN1: Function Layer
 	 *
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 	 * |        |      | PREV |  PP  | NEXT |      |------|           |------|      |      |      | BDN  | BUP  |        |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-	 * |        |      |      |      |      |      |      |           |      |      |      | MUTE |  V-  |  V+  |  GAME  |
+	 * |        |      |      |      |      |      |      |           |      |      |      | MUTE | VOLD | VOLU |  GAME  |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
 	 *   |      |      |      |      |      |                                       |      |      |      |      |      |
 	 *   '----------------------------------'                                       '----------------------------------'
@@ -216,7 +216,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |--------+------+------+------+------+------| PGDN |           | XXXX |------+------+------+------+------+--------|
 	 * | LSHIFT |  Z   |  X   |  C   |  V   |  B   |      |           |      | XXXX | XXXX | XXXX | XXXX | XXXX |  XXXX  |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
-	 *   | LCTL |  M   |  M   | LALT |SPACE |                                       | XXXX | XXXX | XXXX | XXXX | EXIT |
+	 *   | LCTL |  M   |  M   | LGUI |SPACE |                                       | XXXX | XXXX | XXXX | XXXX | EXIT |
 	 *   '----------------------------------'                                       '----------------------------------'
 	 *                                        .-------------.       .-------------.
 	 *                                        | INS  | DEL  |       | XXXX | XXXX |
@@ -232,7 +232,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		       KC_TAB,    KC_Q,    KC_W,    KC_E,   KC_R,   KC_T, KC_PGUP,
 		LALT(KC_BTN3),    KC_A,    KC_S,    KC_D,   KC_F,   KC_G,
 		      KC_LSFT,    KC_Z,    KC_X,    KC_C,   KC_V,   KC_B, KC_PGDN,
-		      KC_PGUP,    KC_M,    KC_M, KC_LALT, KC_SPC,
+		      KC_LCTL,    KC_M,    KC_X, KC_LGUI, KC_SPC,
 		                                                  KC_INS,  KC_DEL,
 		                                                             KC_7,
 		                                            KC_9,   KC_0,    KC_8,
@@ -255,14 +255,15 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_NUM);
                 layer_off(_ADJ);
                 layer_on(_GAME);
+                rgblight_enable();
+                rgblight_setrgb(0, 255, 0);
                 if (!eeconfig_is_enabled()) {
                         eeconfig_init();
                 }
                 keymap_config.raw = eeconfig_read_keymap();
                 keymap_config.nkro = 1;
                 eeconfig_update_keymap(keymap_config.raw);
-                rgblight_setrgb(0, 255, 0);
-                rgblight_enable();
+
             }
             return false;
             break;
@@ -288,7 +289,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 // Runs just one time when the keyboard initializes.
 void matrix_init_keymap(void) {
 	// OS conditioning setup
-    if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
+	if (!eeconfig_is_enabled()) {
+            eeconfig_init();
+    }
+    keymap_config.raw = eeconfig_read_keymap();
+    if (keymap_config.swap_lalt_lgui && keymap_config.swap_ralt_rgui) {
         osx = false;
     }
 };
