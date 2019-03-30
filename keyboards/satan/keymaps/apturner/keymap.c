@@ -183,7 +183,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_keymap(void) {
     // OS conditioning setup
-    if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
+    if (!eeconfig_is_enabled()) {
+            eeconfig_init();
+    }
+    keymap_config.raw = eeconfig_read_keymap();
+    if (keymap_config.swap_lalt_lgui && keymap_config.swap_ralt_rgui) {
         osx = false;
     }
 
