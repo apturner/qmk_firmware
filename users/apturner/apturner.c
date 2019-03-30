@@ -46,6 +46,7 @@ void led_interrupt_keymap(void) {}
 
 // Call user matrix init, then call the keymap's init function
 void matrix_init_user(void) {
+	osx = true;
 	matrix_init_keymap();
 }
 
@@ -56,7 +57,6 @@ void matrix_scan_user(void) {
 }
 
 // For conditioning on which OS
-bool osx = true;
 void conditional_key(bool condition, uint16_t keycode_true, uint16_t keycode_false, keyrecord_t *record) {
 	if (record->event.pressed) {
 		if (condition) {

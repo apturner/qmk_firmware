@@ -47,6 +47,6 @@ enum custom_keycodes {
 #define CAG LCTL(LALT(KC_LGUI))  // Ctrl-Alt-Gui
 #define SAG LSFT(LALT(KC_LGUI))  // Shift-Alt-Gui
 
-extern bool osx;
+bool osx;
 
 #endif
