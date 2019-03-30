@@ -26,11 +26,14 @@ enum satan_layers {
 	_FN1,
 	_NUM,
 	_ADJ,
+	_GAME,
 };
 
 enum ergodox_ez_keycodes {
 	PLACEHOLDER = NEW_SAFE_RANGE, // can always be here
-	RGB_SLD
+	RGB_SLD,
+	GAME,
+    EXT_GAME
 };
 
 #define FN1_BSPC LT(_FN1, KC_BSPC) // Tap for Space, hold for NUM layer
@@ -61,14 +64,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 */
 	[_QWERTY] = LAYOUT_ergodox(
 		// left hand
-		  KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   HYP_T,
-		  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,  KC_ESC,
-		MO(_NUM),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-		 KC_LSPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    UNDO,
-		 KC_CAPS,  KC_MEH, KC_LCTL, KC_LALT, KC_LGUI,
-		                                              KC_HOME,  KC_END,
-		                                                       KC_PGUP,
-		                                      KC_SPC, KC_HYPR, KC_PGDN,
+		  KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   HYP_T,
+		  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,  KC_ESC,
+		MO(_NUM),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+		 KC_LSPO,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    UNDO,
+		 KC_CAPS, KC_MEH, KC_LCTL, KC_LALT, KC_LGUI,
+		                                             KC_HOME,  KC_END,
+		                                                      KC_PGUP,
+		                                     KC_SPC, KC_HYPR, KC_PGDN,
 		// right hand
 		  HYP_Y,    KC_6,      KC_7,    KC_8,    KC_9,    KC_0,   KC_DEL,
 		    CAG,    KC_Y,      KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
@@ -82,13 +85,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Keymap _FN1: Function Layer
 	 *
 	 * .--------------------------------------------------.           .--------------------------------------------------.
-	 * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  | F10  |  F11   |
+	 * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F7  |  F8  |  F9  | F10  | F11  | F12  |        |
 	 * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-	 * |        | WLLF | WLDN | MSUP | WLUP | WLRT |      |           |      |      | ACL1 |  UP  | ACL0 | ACL2 |  F12   |
+	 * |        | WLLF | WLDN | MSUP | WLUP | WLRT |      |           |      | PGUP | ACL1 |  UP  | ACL0 | ACL2 |        |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-	 * |        | BTN2 | MSLF | MSDN | MSRT | BTN1 |------|           |------| BTN1 | LEFT | DOWN | RGHT |      |   `    |
+	 * |        | BTN2 | MSLF | MSDN | MSRT | BTN1 |------|           |------| PGDN | LEFT | DOWN | RGHT |      |   `    |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-	 * |        |      |      |      |      |      |      |           |      | HOME | PGUP | PGDN | END  | INS  |        |
+	 * |        |      |      |      |      |      |      |           |      |      | BTN1 | HOME | END  | INS  |        |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
 	 *   |      |      |      | BTN2 | BTN1 |                                       |      |      |      |      |      |
 	 *   '----------------------------------'                                       '----------------------------------'
@@ -96,29 +99,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 *                                        |      |      |       |      |      |
 	 *                                 .------|------|------|       |------+------+------.
 	 *                                 |      |      |      |       |      |      |      |
-	 *                                 |      |      |------|       |------|      |      |
+	 *                                 | BTN1 | BTN2 |------|       |------|      |      |
 	 *                                 |      |      |      |       |      |      |      |
 	 *                                 '--------------------'       '--------------------'
 	 */
 	[_FN1] = LAYOUT_ergodox(
 		// left hand
-		____,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, ____,
-		____, KC_WH_L, KC_WH_D, KC_MS_U, KC_WH_U, KC_WH_R, ____,
+		____,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_F6,
+		____, KC_WH_L, KC_WH_D, KC_MS_U, KC_WH_U, KC_WH_R,  ____,
 		____, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1,
-		____,    ____,    ____,    ____,    ____,    ____, ____,
+		____,    ____,    ____,    ____,    ____,    ____,  ____,
 		____,    ____,    ____, KC_BTN2, KC_BTN1,
-		                                             ____, ____,
-		                                                   ____,
-		                                    ____,    ____, ____,
+		                                             ____,  ____,
+		                                                    ____,
+		                                 KC_BTN1, KC_BTN2,  ____,
 		// right hand
-		____,   KC_F6,    KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11,
-		____,    ____,  KC_ACL1,   KC_UP, KC_ACL0, KC_ACL2, KC_F12,
-		      KC_BTN1,  KC_LEFT, KC_DOWN, KC_RGHT,    ____, KC_GRV,
-		____, KC_HOME,  KC_PGUP, KC_PGDN,  KC_END,  KC_INS,   ____,
+		KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,   ____,
+		 ____, KC_PGUP, KC_ACL1,   KC_UP, KC_ACL0, KC_ACL2,   ____,
+		       KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,    ____, KC_GRV,
+		 ____,    ____, KC_BTN1, KC_HOME,  KC_END,  KC_INS,   ____,
 		                   ____,    ____,    ____,    ____,   ____,
-		____,    ____,
-		____,
-		____,    ____,    ____),
+		 ____,    ____,
+		 ____,
+		 ____,    ____,   ____),
 
 	/* Keymap _NUM: Numpad layer
 	 *
@@ -143,14 +146,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 */
 	[_NUM] = LAYOUT_ergodox(
 		// left hand
-		____, ____, ____,    ____,     ____, ____, ____,
-		____, ____, ____,    UNDO,     REDO, ____, ____,
-		____, ____,  CUT,    COPY,    PASTE, ____,
-		____, ____, ____, SOFT_UN,  SOFT_RE, ____, ____,
-		____, ____, ____,    ____,     ____,
-		                                     ____, ____,
-		                                           ____,
-		                               ____, ____, ____,
+		____, ____, ____,    ____,    ____, ____, ____,
+		____, ____, ____,    UNDO,    REDO, ____, ____,
+		____, ____,  CUT,    COPY,   PASTE, ____,
+		____, ____, ____, SOFT_UN, SOFT_RE, ____, ____,
+		____, ____, ____,    ____,    ____,
+		                                    ____, ____,
+		                                          ____,
+		                              ____, ____, ____,
 		// right hand
 		____, ____, KC_PEQL, KC_PSLS, KC_PAST, KC_BSPC, ____,
 		____, ____,   KC_P7,   KC_P8,   KC_P9, KC_PMNS, ____,
@@ -164,13 +167,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Keymap _ADJ: Adjust layer
 	 *
 	 * .--------------------------------------------------.           .--------------------------------------------------.
-	 * | RESET  |      |      |      |      |      |      |           |      |      |      |      | SWAP | NORM | SLEEP  |
+	 * |  MAKE  |      |      |      |      |      |      |           |      |      |      |      | SWAP | NORM | SLEEP  |
 	 * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-	 * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+	 * | RESET  |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 	 * |        |      | PREV |  PP  | NEXT |      |------|           |------|      |      |      | BDN  | BUP  |        |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-	 * |        |      |      |      |      |      |      |           |      |      |      | MUTE |  V-  |  V+  |        |
+	 * |        |      |      |      |      |      |      |           |      |      |      | MUTE |  V-  |  V+  |  GAME  |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
 	 *   |      |      |      |      |      |                                       |      |      |      |      |      |
 	 *   '----------------------------------'                                       '----------------------------------'
@@ -184,27 +187,92 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 */
 	[_ADJ] = LAYOUT_ergodox(
 		// left hand
-		RESET, ____, ____,    ____,    ____,    ____, ____,
-		 ____, ____, ____,    ____,    ____,    ____, ____,
-		 ____, ____, PREV, KC_MPLY,    NEXT,    ____,
-		 ____, ____, ____,    ____,    ____,    ____, ____,
-		 ____, ____, ____,    ____,    ____,
-		                                     RGB_MOD, ____,
-		                                              ____,
-		                            RGB_VAD, RGB_VAI, ____,
+		KC_MAKE, ____, ____,    ____,    ____,    ____, ____,
+		  RESET, ____, ____,    ____,    ____,    ____, ____,
+		   ____, ____, PREV, KC_MPLY,    NEXT,    ____,
+		   ____, ____, ____,    ____,    ____,    ____, ____,
+		   ____, ____, ____,    ____,    ____,
+		                                       RGB_MOD, ____,
+		                                                ____,
+		                              RGB_VAD, RGB_VAI, ____,
 		// right hand
 		   ____,    ____,     ____, ____, AG_SWAP, AG_NORM, KC_SLEP,
 		   ____,    ____,     ____, ____,    ____,    ____,    ____,
 		            ____,     ____, ____, MAC_DIM, MAC_BRI,    ____,
-		   ____,    ____,     ____, MUTE,    VOLD,    VOLU,    ____,
+		   ____,    ____,     ____, MUTE,    VOLD,    VOLU,    GAME,
 		            ____,     ____, ____,    ____,    ____,
 		RGB_TOG, RGB_SLD,
 		   ____,
 		   ____, RGB_HUD, RGB_HUI),
+
+	/* Keymap _GAME: Gaming layer
+	 *
+	 * .--------------------------------------------------.           .--------------------------------------------------.
+	 * |   `    |  1   |  2   |  3   |  4   |  5   |  =   |           | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |   F6   |
+	 * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+	 * |  TAB   |  Q   |  W   |  E   |  R   |  T   | PGUP |           | XXXX |  F7  |  F8  |  F9  | F10  | F11  |  F12   |
+	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+	 * |ALT+BTN3|  A   |  S   |  D   |  F   |  G   |------|           |------| XXXX | XXXX | XXXX | XXXX | XXXX |  XXXX  |
+	 * |--------+------+------+------+------+------| PGDN |           | XXXX |------+------+------+------+------+--------|
+	 * | LSHIFT |  Z   |  X   |  C   |  V   |  B   |      |           |      | XXXX | XXXX | XXXX | XXXX | XXXX |  XXXX  |
+	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
+	 *   | LCTL |  M   |  M   | LALT |SPACE |                                       | XXXX | XXXX | XXXX | XXXX | EXIT |
+	 *   '----------------------------------'                                       '----------------------------------'
+	 *                                        .-------------.       .-------------.
+	 *                                        | INS  | DEL  |       | XXXX | XXXX |
+	 *                                 .------|------|------|       |------+------+------.
+	 *                                 |      |      |  7   |       | XXXX |      |      |
+	 *                                 |  9   |  0   |------|       |------| XXXX | XXXX |
+	 *                                 |      |      |  8   |       | XXXX |      |      |
+	 *                                 '--------------------'       '--------------------'
+	 */
+	[_GAME] = LAYOUT_ergodox(
+		// left hand
+		       KC_GRV,    KC_1,    KC_2,    KC_3,   KC_4,   KC_5,  KC_EQL,
+		       KC_TAB,    KC_Q,    KC_W,    KC_E,   KC_R,   KC_T, KC_PGUP,
+		LALT(KC_BTN3),    KC_A,    KC_S,    KC_D,   KC_F,   KC_G,
+		      KC_LSFT,    KC_Z,    KC_X,    KC_C,   KC_V,   KC_B, KC_PGDN,
+		      KC_PGUP,    KC_M,    KC_M, KC_LALT, KC_SPC,
+		                                                  KC_INS,  KC_DEL,
+		                                                             KC_7,
+		                                            KC_9,   KC_0,    KC_8,
+		// right hand
+		KC_ESC, KC_F1, KC_F2, KC_F3,  KC_F4,  KC_F5,    KC_F6,
+		  XXXX, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,   KC_F12,
+		         XXXX,  XXXX,  XXXX,   XXXX,   XXXX,     XXXX,
+		  XXXX,  XXXX,  XXXX,  XXXX,   XXXX,   XXXX,     XXXX,
+		                XXXX,  XXXX,   XXXX,   XXXX, EXT_GAME,
+		  XXXX,  XXXX,
+		  XXXX,
+		  XXXX,  XXXX,  XXXX),
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
+		case GAME:
+            if (record->event.pressed) {
+                layer_off(_FN1);
+                layer_off(_NUM);
+                layer_off(_ADJ);
+                layer_on(_GAME);
+                if (!eeconfig_is_enabled()) {
+                        eeconfig_init();
+                }
+                keymap_config.raw = eeconfig_read_keymap();
+                keymap_config.nkro = 1;
+                eeconfig_update_keymap(keymap_config.raw);
+                rgblight_setrgb(0, 255, 0);
+                rgblight_enable();
+            }
+            return false;
+            break;
+        case EXT_GAME:
+            if (record->event.pressed) {
+                layer_off(_GAME);
+                rgblight_disable();
+            }
+            return false;
+            break;
 		case RGB_SLD:
 			if (record->event.pressed) {
 				#ifdef RGBLIGHT_ENABLE
