@@ -95,14 +95,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;
 		case TOGG_OS:
 			if (record->event.pressed) {
-				if (osx) {
-					osx = false;
-				} else{
-					osx = true;
-				}
-
+				// if (osx) {
+				// 	osx = false;
+				// } else{
+				// 	osx = true;
+				// }
+				osx = !osx;
 			}
-			return false; // Let QMK send the press/release events
+			return false; // Skip all further processing of this key
 			break; // Exit switch
 		case AG_NORM:
 			if (record->event.pressed) {
