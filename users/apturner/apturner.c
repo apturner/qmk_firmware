@@ -145,15 +145,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false; // Skip all further processing of this key
 			break; // Exit switch
 		case CUT:
-			conditional_key(osx, LGUI(KC_X), KC_CUT, record);
+			conditional_key(osx, LGUI(KC_X), LCTL(KC_X), record); // KC_CUT
 			return false; // Skip all further processing of this key
 			break; // Exit switch
 		case COPY:
-			conditional_key(osx, LGUI(KC_C), KC_COPY, record);
+			conditional_key(osx, LGUI(KC_C), LCTL(KC_C), record); // KC_COPY
 			return false; // Skip all further processing of this key
 			break; // Exit switch
 		case PASTE:
-			conditional_key(osx, LGUI(KC_V), KC_PASTE, record);
+			conditional_key(osx, LGUI(KC_V), LCTL(KC_V), record); // KC_PASTE
 			return false; // Skip all further processing of this key
 			break; // Exit switch
 
