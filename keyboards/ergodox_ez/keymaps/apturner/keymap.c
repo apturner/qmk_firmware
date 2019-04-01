@@ -216,7 +216,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |--------+------+------+------+------+------| PGDN |           | XXXX |------+------+------+------+------+--------|
 	 * | LSHIFT |  Z   |  X   |  C   |  V   |  B   |      |           |      | XXXX | XXXX | XXXX | XXXX | XXXX |  XXXX  |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
-	 *   | LCTL |  M   |  M   | LGUI |SPACE |                                       | XXXX | XXXX | XXXX | XXXX | EXIT |
+	 *   | LCTL |  M   |  X   | LGUI |SPACE |                                       | XXXX | XXXX | XXXX | XXXX | EXIT |
 	 *   '----------------------------------'                                       '----------------------------------'
 	 *                                        .-------------.       .-------------.
 	 *                                        | INS  | DEL  |       | XXXX | XXXX |
@@ -256,6 +256,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_ADJ);
                 layer_on(_GAME);
                 rgblight_enable();
+                rgblight_mode(1); // Solid
                 rgblight_setrgb(0, 255, 0);
                 if (!eeconfig_is_enabled()) {
                         eeconfig_init();
@@ -270,6 +271,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         case EXT_GAME:
             if (record->event.pressed) {
                 layer_off(_GAME);
+                rgblight_mode(8); // Fast rainbow cycle
                 rgblight_disable();
             }
             return false;
