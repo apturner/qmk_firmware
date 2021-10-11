@@ -137,11 +137,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false; // Skip all further processing of this key
 			break; // Exit switch
 		case UNDO:
-			conditional_key(osx, LGUI(KC_Z), KC_UNDO, record);
+			conditional_key(osx, LGUI(KC_Z), LCTL(KC_Z), record); // KC_UNDO
 			return false; // Skip all further processing of this key
 			break; // Exit switch
 		case REDO:
-			conditional_key(osx, SCMD(KC_Z), KC_AGAIN, record);
+			conditional_key(osx, SCMD(KC_Z), LSFT(LCTL(KC_Z)), record); // KC_AGAIN
 			return false; // Skip all further processing of this key
 			break; // Exit switch
 		case CUT:

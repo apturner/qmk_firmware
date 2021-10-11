@@ -212,17 +212,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
 	 * |  TAB   |  Q   |  W   |  E   |  R   |  T   | PGUP |           | XXXX |  F7  |  F8  |  F9  | F10  | F11  |  F12   |
 	 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-	 * |ALT+BTN3|  A   |  S   |  D   |  F   |  G   |------|           |------| XXXX | XXXX | XXXX | XXXX | XXXX |  XXXX  |
+	 * |ALT+BTN3|  A   |  S   |  D   |  F   |  G   |------|           |------| XXXX | XXXX | XXXX |  UP  | XXXX |  XXXX  |
 	 * |--------+------+------+------+------+------| PGDN |           | XXXX |------+------+------+------+------+--------|
-	 * | LSHIFT |  Z   |  X   |  C   |  V   |  B   |      |           |      | XXXX | XXXX | XXXX | XXXX | XXXX |  XXXX  |
+	 * | LSHIFT |  Z   |  X   |  C   |  V   |  B   |      |           |      | XXXX | XXXX | LEFT | DOWN | RGHT |  XXXX  |
 	 * '--------+------+------+------+------+-------------'           '-------------+------+------+------+------+--------'
-	 *   | LCTL |  M   |  X   | LGUI |SPACE |                                       | XXXX | XXXX | XXXX | XXXX | EXIT |
+	 *   | LCTL |  M   |  X   | LGUI |SPACE |                                       | ENTR | XXXX | XXXX | XXXX | EXIT |
 	 *   '----------------------------------'                                       '----------------------------------'
 	 *                                        .-------------.       .-------------.
 	 *                                        | INS  | DEL  |       | XXXX | XXXX |
 	 *                                 .------|------|------|       |------+------+------.
 	 *                                 |      |      |  7   |       | XXXX |      |      |
-	 *                                 |  9   |  0   |------|       |------| XXXX | XXXX |
+	 *                                 |  9   |  0   |------|       |------| VOLD | VOLU |
 	 *                                 |      |      |  8   |       | XXXX |      |      |
 	 *                                 '--------------------'       '--------------------'
 	 */
@@ -237,14 +237,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		                                                             KC_7,
 		                                            KC_9,   KC_0,    KC_8,
 		// right hand
-		KC_ESC, KC_F1, KC_F2, KC_F3,  KC_F4,  KC_F5,    KC_F6,
-		  XXXX, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,   KC_F12,
-		         XXXX,  XXXX,  XXXX,   XXXX,   XXXX,     XXXX,
-		  XXXX,  XXXX,  XXXX,  XXXX,   XXXX,   XXXX,     XXXX,
-		                XXXX,  XXXX,   XXXX,   XXXX, EXT_GAME,
+		KC_ESC, KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,
+		  XXXX, KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,
+		         XXXX,   XXXX,    XXXX,   KC_UP,    XXXX,     XXXX,
+		  XXXX,  XXXX,   XXXX, KC_LEFT, KC_DOWN, KC_RGHT,     XXXX,
+		               KC_ENT,    XXXX,    XXXX,    XXXX, EXT_GAME,
 		  XXXX,  XXXX,
 		  XXXX,
-		  XXXX,  XXXX,  XXXX),
+		  XXXX,  VOLD,  VOLU),
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
