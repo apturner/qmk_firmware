@@ -1,5 +1,20 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+/* Copyright 2018-2021 @fixed, MechMerlin, QMK
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#pragma once
 
 #include "config_common.h"
 
@@ -9,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ALF
 #define PRODUCT         X2
-#define DESCRIPTION     ALF X2 60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -23,6 +37,9 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define LED_CAPS_LOCK_PIN B2
+#define LED_PIN_ON_STATE 0
+
 /* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
@@ -30,7 +47,7 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -45,6 +62,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
-
 #endif
